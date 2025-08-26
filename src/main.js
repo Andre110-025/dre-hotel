@@ -4,8 +4,8 @@ import { createPinia } from 'pinia'
 import { MotionPlugin } from '@vueuse/motion'
 import { createVfm } from 'vue-final-modal'
 import 'vue-final-modal/style.css'
-import axios from 'axios'
-
+// import axios from 'axios'
+import { useUserStore } from '@/stores/user'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -18,4 +18,7 @@ app.use(createPinia())
 
 app.mount('#app')
 
-axios.defaults.baseURL = "http://localhost:5000"
+const userStore = useUserStore()
+userStore.initUser() // restore session on reload
+
+// axios.defaults.baseURL = "http://localhost:5000"

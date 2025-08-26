@@ -60,20 +60,21 @@ const handleLogin = async () => {
   try {
     loading.value = true
 
-    
-    const { data, status } = await axios.get('/users')
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || []
+    const foundUser = storedUsers.find(
+      u => u.email === authData.email && u.password === authData.password
+    )
 
-    if (status === 200) {
-      const matchUser = data.find(
-        u => u.email === authData.email && u.password === authData.password
-      )
-
-      if (matchUser) {
+      if (foundUser) {
         const token = Math.random().toString(36).substring(2) + Date.now().toString(36)
 
-        userStore.user.token = token
-        userStore.user.users = matchUser
-        userStore.user.expirationTime = Date.now() + 1000 * 60 * 60
+        userStore.user = {
+          token,
+          users: foundUser,
+          expirationTime: Date.now() + 1000 * 60 * 60 * 24 * 7  
+        }
+
+        localStorage.setItem("currentUser", JSON.stringify(userStore.user))
 
         toast.success('Login Successful')
         setTimeout(() => {
@@ -85,7 +86,32 @@ const handleLogin = async () => {
       } else {
         toast.error('Invalid email or password')
       }
-    }
+    
+    // const { data, status } = await axios.get('/users')
+
+    // if (status === 200) {
+    //   const matchUser = data.find(
+    //     u => u.email === authData.email && u.password === authData.password
+    //   )
+
+    //   if (matchUser) {
+    //     const token = Math.random().toString(36).substring(2) + Date.now().toString(36)
+
+    //     userStore.user.token = token
+    //     userStore.user.users = matchUser
+    //     userStore.user.expirationTime = Date.now() + 1000 * 60 * 60
+
+    //     toast.success('Login Successful')
+    //     setTimeout(() => {
+    //       router.push({ name: 'home' })
+    //     }, 3000);
+
+    //     authData.email = ''
+    //     authData.password = ''
+    //   } else {
+    //     toast.error('Invalid email or password')
+    //   }
+    // }
   } catch (error) {
     console.error('Login error:', error)
     toast.error('An error occurred during login')

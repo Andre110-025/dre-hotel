@@ -263,6 +263,113 @@ storedData.users.push(newUser)
 localStorage.setItem('users', JSON.stringify(storedData))
 
 
+
+
+
+
+const handleSignIn = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
+
+  let storedUsers = JSON.parse(localStorage.getItem("users")) || []
+  if (!Array.isArray(storedUsers)) {
+    storedUsers = []
+  }
+
+  const userExists = storedUsers.find(u => u.email === authData.email)
+  
+  if (userExists) {
+    toast.warning('Email already exists')
+    return
+  }
+
+  try {
+    loading.value = true
+
+    const newUser = {
+      id: Date.now(),
+      name: authData.name,
+      email: authData.email,
+      password: authData.password,
+    }
+
+    storedUsers.push(newUser)
+    localStorage.setItem("users", JSON.stringify(storedUsers))
+
+    localStorage.setItem("currentUser", JSON.stringify(newUser))
+
+    toast.success('Account created successfully')
+
+    setTimeout(() => {
+      router.push({ name: 'home' })
+    }, 3000)
+
+    // reset form
+    authData.name = ''
+    authData.email = ''
+    authData.password = ''
+
+  } catch (error) {
+    toast.error('An Error was encountered')
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+
+
+if (foundUser) {
+  const token = Math.random().toString(36).substring(2) + Date.now().toString(36)
+
+  userStore.user = {
+    token,
+    users: foundUser,
+    expirationTime: Date.now() + 1000 * 60 * 60 // 1 hour
+  }
+
+  localStorage.setItem("currentUser", JSON.stringify(userStore.user)) // ✅ persist
+
+  toast.success('Login Successful')
+  setTimeout(() => {
+    router.push({ name: 'home' })
+  }, 3000)
+
+  authData.email = ''
+  authData.password = ''
+}
+
+
+
+const handleLogin = () => {
+  const storedUsers = JSON.parse(localStorage.getItem("users")) || []
+
+  const foundUser = storedUsers.find(
+    u => u.email === form.value.email && u.password === form.value.password
+  )
+
+  if (!foundUser) {
+    toast.error("Invalid email or password")
+    return
+  }
+
+  // Save current session
+  localStorage.setItem("currentUser", JSON.stringify(foundUser))
+
+  toast.success("Welcome back, " + foundUser.name + "!")
+  router.push("/home")
+}
+
+let storedUsers = JSON.parse(localStorage.getItem("users")) || []
+storedUsers.push(newUser)
+localStorage.setItem("users", JSON.stringify(storedUsers))
+
+const storedUsers = JSON.parse(localStorage.getItem("users")) || []
+const foundUser = storedUsers.find(
+  u => u.email === authData.email && u.password === authData.password
+)
+
+
 </script>
 
 

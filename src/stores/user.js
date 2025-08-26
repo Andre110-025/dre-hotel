@@ -90,6 +90,24 @@ export const useUserStore = defineStore('user', () => {
         }
     }
 
+    const initUser = () => {
+  if (user.value && user.value.expirationTime) {
+    if (user.value.expirationTime > Date.now()) {
+      // still valid
+      return
+    } else {
+      // expired
+      localStorage.removeItem('storeDets')
+      user.value = {
+        token: null,
+        expirationTime: null,
+        users: null
+      }
+    }
+  }
+}
+
+
 
     const $reset = async () => {
         try {
@@ -122,6 +140,7 @@ export const useUserStore = defineStore('user', () => {
         resetData,
         getUserDetails,
         logOut,
-        $reset
+        $reset,
+        initUser
     }
 })

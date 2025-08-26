@@ -60,31 +60,55 @@ const v$ = useVuelidate(rules, authData)
 
 
 const handleSignIn = async () => {
-    const isFormCorrect = await v$.value.$validate()
-    if(!isFormCorrect) return
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
 
-    try {
-        loading.value = true
+  let storedUsers = JSON.parse(localStorage.getItem("users")) || []
+  
+  if (!Array.isArray(storedUsers)) {
+    storedUsers = []
+  }
+  const userExists = storedUsers.find(u => u.email === authData.email)
+  
+  if (userExists) {
+    toast.warning('Email already exists')
+    return
+  }
 
-        const response = await axios.post('/users', authData)
+  try {
+    loading.value = true
 
-        if (response.status === 201) {
-          toast.success('Account created, Go to Login!')
-          setTimeout(() => {
-            router.push({ name: 'login' })
-          }, 3000);
-
-          authData.name = ''
-          authData.email = ''
-          authData.password = ''
-        }
-    } catch (error) {
-       toast.error('An Error was encountered')
-       console.error(error)
-    } finally {
-      loading.value = false
+    const newUser = {
+      id: Date.now(),
+      name: authData.name,
+      email: authData.email,
+      password: authData.password,
     }
-} 
+
+    storedUsers.push(newUser)
+    localStorage.setItem("users", JSON.stringify(storedUsers))
+
+    localStorage.setItem("currentUser", JSON.stringify(newUser))
+
+    toast.success('Account created successfully')
+
+    setTimeout(() => {
+      router.push({ name: 'home' })
+    }, 3000)
+
+    // reset form
+    authData.name = ''
+    authData.email = ''
+    authData.password = ''
+
+  } catch (error) {
+    toast.error('An Error was encountered')
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
 </script>
 
 

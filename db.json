@@ -35,6 +35,12 @@
       "name": "hello",
       "email": "andreharrison355@gmail.com",
       "password": "newPassword"
+    },
+    {
+      "id": "e711",
+      "name": "omoh make e work oh",
+      "email": "omoh@gmail.com",
+      "password": "poiuytreeq"
     }
   ]
 }
