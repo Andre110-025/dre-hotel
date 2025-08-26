@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "andreharrison355@gmail.com",
+      "password": "newPassword",
+      "name": "andre gilbert",
+      "role": "admin",
+      "privileges": [
+        "can_create",
+        "can_edit",
+        "can_delete"
+      ]
+    },
+    {
+      "id": "5ef6",
+      "name": "Osama Binla din",
+      "email": "osamabinladin911@gmail.com",
+      "password": "americaaaa!!!!!!!!!"
+    },
+    {
+      "id": "a116",
+      "name": "dude",
+      "email": "oluwasheges@gmail.com",
+      "password": "Password@123"
+    },
+    {
+      "id": "97aa",
+      "name": "hege",
+      "email": "sheges@gmail.com",
+      "password": "0393038373"
+    },
+    {
+      "id": "9df2",
+      "name": "hello",
+      "email": "andreharrison355@gmail.com",
+      "password": "newPassword"
+    }
+  ]
+}
