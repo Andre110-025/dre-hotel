@@ -93,7 +93,7 @@ const handleSignIn = async () => {
     toast.success('Account created successfully')
 
     setTimeout(() => {
-      router.push({ name: 'home' })
+      router.push({ name: 'login' })
     }, 3000)
 
     // reset form
