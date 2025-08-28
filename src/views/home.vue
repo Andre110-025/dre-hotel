@@ -56,7 +56,7 @@ onBeforeUnmount(() => {
           <h1 class="font-handwritten text-5xl sm:text-5xl md:text-6xl text-white">
             Welcome to Dre-Hotel
           </h1>
-          <p class="text-lg sm:text-xl max-w-xl font-medium leading-relaxed text-center sm:text-left">
+          <p class="text-lg sm:text-xl max-w-xl font-medium leading-relaxed text-center">
             <span
               v-for="(word, index) in heroText[currentSlide].split(' ')"
               :key="index"

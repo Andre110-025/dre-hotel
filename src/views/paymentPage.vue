@@ -1,31 +1,47 @@
 <script setup>
 import router from '@/router';
 import { useRoute } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { toast } from 'vue3-toastify';
-const route = useRoute()
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
+import { useBookingStore } from '@/stores/booking'
 
+
+const bookingStore = useBookingStore()
+const currentBooking = computed(() => bookingStore.currentBooking)
+console.log(currentBooking.value?.price)
+const route = useRoute()
+const loading = ref(false)
 const finalPrice = computed(() => Number(route.query.finalPrice) || 0)
 
-const form = ref({
+const form = reactive({
     cardInfo: '',
     date: '',
     cvv: ''
 })
 
-const isFormValid = computed(() => {
-    return (
-        form.value.cardInfo.trim() !== '' &&
-        form.value.date.trim() !== '' &&
-        form.value.cvv.trim() !== ''
-    )
-})
+const rules = computed(() => ({
+  cardInfo: { required },
+  date: { required },
+  cvv: { required }
+}))
 
-const handleForm = () => {
-    if (!isFormValid.value) {
-        toast.error('invalid input')
-        return
-    }
+const v$ = useVuelidate(rules, form)
+
+// const isFormValid = computed(() => {
+//     return (
+//         form.value.cardInfo.trim() !== '' &&
+//         form.value.date.trim() !== '' &&
+//         form.value.cvv.trim() !== ''
+//     )
+// })
+
+const handleForm = async () => {
+    const isFormCorrect = await v$.value.$validate()
+    if (!isFormCorrect) return
+
+    loading.value = true
 
     toast.success('Booking confirmed!')
 
@@ -33,9 +49,11 @@ const handleForm = () => {
         router.push('/home')
     }, 4000)
 
-    form.value.cardInfo = '',
-    form.value.date = '',
-    form.value.cvv = ''
+    form.cardInfo = '',
+    form.date = '',
+    form.cvv = ''
+
+    loading.value = false
 }
 </script>
 
@@ -64,7 +82,7 @@ const handleForm = () => {
       v-model="form.cardInfo"
       type="text"
       placeholder="1234 5678 9012"
-      class="mt-1 w-full pr-20 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+      class="mt-1 w-full pr-20 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
     />
     <div class="absolute right-3 top-1/2 -translate-y-1/2 flex space-x-1">
       <img src="/visa.png" alt="Visa" class="h-6" />
@@ -80,25 +98,22 @@ const handleForm = () => {
             v-model="form.date"
             type="text"
             placeholder="MM/YY"
-            class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+            class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
           />
           <input
             v-model="form.cvv"
             type="text"
             placeholder="CVV"
-            class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+            class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
           />
         </div>
 
         <button
-          :disabled="!isFormValid"
+          :disabled="loading || v$.$invalid"
           type="submit"
-          :class="[
-            !isFormValid
-            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            : 'bg-mainColor text-white hover:bg-[#9c2828]',
-            'w-full py-3 rounded-lg text-lg font-semibold transition'
-            ]"
+          class="w-full bg-mainColor text-white py-3 rounded-xl font-semibold shadow 
+          hover:bg-mainColor transition
+          disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Pay Now
         </button>

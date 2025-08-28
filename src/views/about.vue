@@ -153,7 +153,7 @@ const textThree = ref(
     <section class="bg-gray-800 text-white py-10 px-4 sm:px-8">
         <div class="max-w-4xl mx-auto text-center space-y-6">
             <h2 class="text-2xl sm:text-3xl font-semibold tracking-wide">Ready to Experience It?</h2>
-            <p class="text-gray-300 text-lg">
+            <p class="text-gray-300 text-base sm:text-lg">
                 Discover a stay that blends comfort, elegance, and unmatched hospitality. Your journey starts here.
             </p>
             <div class="flex justify-center gap-4 flex-wrap">

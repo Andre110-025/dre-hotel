@@ -264,6 +264,39 @@ localStorage.setItem('users', JSON.stringify(storedData))
 
 
 
+<template>
+  <section class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow p-6 space-y-4">
+      <h2 class="text-2xl font-bold text-center">My Profile</h2>
+
+      <div class="space-y-2">
+        <p><span class="font-semibold">Full Name:</span> {{ user.fullName }}</p>
+        <p><span class="font-semibold">Email:</span> {{ user.email }}</p>
+        <p><span class="font-semibold">Phone:</span> {{ user.phone }}</p>
+      </div>
+
+      <button
+        @click="logout"
+        class="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600"
+      >
+        Logout
+      </button>
+    </div>
+  </section>
+</template>
+
+import { ref, onMounted } from "vue"
+
+const user = ref({})
+
+onMounted(() => {
+  user.value = JSON.parse(localStorage.getItem("fakeDBUser")) || {}
+})
+
+const logout = () => {
+  localStorage.removeItem("fakeDBUser")
+  window.location.href = "/"
+}
 
 
 
@@ -368,6 +401,183 @@ const storedUsers = JSON.parse(localStorage.getItem("users")) || []
 const foundUser = storedUsers.find(
   u => u.email === authData.email && u.password === authData.password
 )
+
+
+
+
+import { defineStore } from "pinia"
+import { useStorage } from "@vueuse/core"
+import { useRouter } from "vue-router"
+import { toast } from "vue3-toastify"
+
+export const useUserStore = defineStore("user", () => {
+  const router = useRouter()
+
+  // fake DB = all registered users
+  const users = useStorage("allUsers", [])
+
+  // current logged in user
+  const currentUser = useStorage("currentUser", null)
+
+  // 🔹 SIGN UP (register new account)
+  const handleSignUp = async (newUser) => {
+    // check if email already exists
+    const exists = users.value.find((u) => u.email === newUser.email)
+    if (exists) {
+      toast.error("User already exists")
+      return false
+    }
+
+    // save to "DB"
+    users.value.push(newUser)
+
+    // auto login after signup
+    handleLogIn(newUser.email, newUser.password)
+    toast.success("Account created successfully")
+    return true
+  }
+
+  // 🔹 LOG IN (authenticate user)
+  const handleLogIn = async (email, password) => {
+    const user = users.value.find(
+      (u) => u.email === email && u.password === password
+    )
+    if (!user) {
+      toast.error("Invalid email or password")
+      return false
+    }
+
+    currentUser.value = {
+      ...user,
+      token: Math.random().toString(36).substring(2),
+      expirationTime: Date.now() + 7 * 24 * 60 * 60 * 1000 // 7 days
+    }
+
+    toast.success(`Welcome back, ${user.name || "Guest"}!`)
+    router.push({ name: "profile" })
+    return true
+  }
+
+  // 🔹 LOG OUT
+  const logOut = () => {
+    currentUser.value = null
+    toast.info("You have been logged out")
+    router.push({ name: "login" })
+  }
+
+  // 🔹 GET CURRENT USER (reactive)
+  const getCurrentUser = () => currentUser
+
+  return {
+    users,
+    currentUser,
+    handleSignUp,
+    handleLogIn,
+    logOut,
+    getCurrentUser
+  }
+})
+
+const handleSignIn = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
+
+  // read users from Pinia (already synced to localStorage)
+  let storedUsers = userStore.allUsers || []
+
+  // safety check (ensure it's always an array)
+  if (!Array.isArray(storedUsers)) {
+    storedUsers = []
+    userStore.allUsers = []
+  }
+
+  // check if user already exists
+  const userExists = storedUsers.find(u => u.email === authData.email)
+  if (userExists) {
+    toast.warning('Email already exists')
+    return
+  }
+
+  try {
+    loading.value = true
+
+    const newUser = {
+      id: Date.now(),
+      name: authData.name,
+      email: authData.email,
+      password: authData.password,
+    }
+
+    // push into Pinia store (auto saves to localStorage)
+    userStore.allUsers.push(newUser)
+
+    // set current logged-in user
+    userStore.user.users = newUser
+    userStore.user.token = Math.random().toString(36).substring(2)
+    userStore.user.expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000
+
+    toast.success('Account created successfully')
+
+    setTimeout(() => {
+      router.push({ name: 'home' })
+    }, 3000)
+
+    // reset form
+    authData.name = ''
+    authData.email = ''
+    authData.password = ''
+
+  } catch (error) {
+    toast.error('An Error was encountered')
+    console.error(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+const handleLogin = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
+
+  try {
+    loading.value = true
+
+    // get users from Pinia (already persisted)
+    const storedUsers = userStore.allUsers || []
+    const foundUser = storedUsers.find(
+      u => u.email === authData.email && u.password === authData.password
+    )
+
+    if (foundUser) {
+      const token = Math.random().toString(36).substring(2) + Date.now().toString(36)
+
+      // set current session details
+      userStore.user = {
+        token,
+        users: foundUser,
+        expirationTime: Date.now() + 1000 * 60 * 60 * 24 * 7 // 7 days
+      }
+
+      toast.success('Login Successful')
+
+      setTimeout(() => {
+        router.push({ name: 'home' })
+      }, 3000)
+
+      // reset form
+      authData.email = ''
+      authData.password = ''
+    } else {
+      toast.error('Invalid email or password')
+    }
+
+  } catch (error) {
+    console.error('Login error:', error)
+    toast.error('An error occurred during login')
+  } finally {
+    loading.value = false
+  }
+}
 
 
 </script>

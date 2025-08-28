@@ -13,7 +13,6 @@ import IconX from './IconX.vue';
   <footer class="bg-[#0d0d0d] border-t border-neutral-800 text-gray-300">
     <div class="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
       
-      <!-- Column 1: Brand -->
       <div>
         <h3 class="text-xl font-bold text-white tracking-tight mb-4">Dre Hotel</h3>
         <p class="text-sm leading-relaxed text-gray-400">
@@ -21,10 +20,9 @@ import IconX from './IconX.vue';
         </p>
       </div>
 
-      <!-- Column 2: Follow Us -->
       <div>
         <h3 class="text-lg font-semibold text-white mb-4">Follow Us</h3>
-        <ul class="space-y-3 text-sm">
+        <ul class="space-y-3 text-sm text-gray-400">
           <li class="flex items-center gap-2 hover:text-white transition-colors duration-300 cursor-pointer">
             <IconFacebook class="w-4 h-4" /> Dre_hotel & suites
           </li>
@@ -40,10 +38,9 @@ import IconX from './IconX.vue';
         </ul>
       </div>
 
-      <!-- Column 3: Contact -->
       <div>
         <h3 class="text-lg font-semibold text-white mb-4">Contact</h3>
-        <ul class="space-y-3 text-sm">
+        <ul class="space-y-3 text-sm text-gray-400">
           <li class="flex items-center gap-2 hover:text-white transition-colors duration-300 cursor-pointer">
             <IconEmail class="w-4 h-4" /> info@andrehotel.com
           </li>
@@ -56,7 +53,6 @@ import IconX from './IconX.vue';
         </ul>
       </div>
 
-      <!-- Column 4: Newsletter -->
       <div>
         <h3 class="text-lg font-semibold text-white mb-4">Newsletter</h3>
         <p class="text-sm text-gray-400 mb-4">

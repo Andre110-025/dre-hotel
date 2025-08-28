@@ -21,26 +21,22 @@ const props = defineProps({
     :clickToClose="true"
     @click-outside="emit('confirm')"
   >
-    <!-- Hotel Image -->
     <img
       :src="hotel.urls?.small"
       alt="Hotel Image"
       class="rounded-lg shadow-md mb-4 object-cover w-full h-48 sm:h-60 md:h-72"
     />
 
-    <!-- Hotel Title -->
-    <h2 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 mb-2 leading-tight text-center px-2">
+    <h2 class="text-lg sm:text-2xl font-semibold text-textColor text-center px-2">
       {{ hotel.alt_description || 'Luxury Hotel' }}
     </h2>
 
-    <!-- Hotel Short Desc -->
-    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-3 max-h-[120px] overflow-y-auto px-4 text-center">
+    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mt-2.5 max-h-[120px] overflow-y-auto px-4 text-center">
       {{ hotel.description || 'Experience exceptional comfort and service in our beautifully appointed rooms with stunning views.' }}
     </p>
 
-    <!-- Info Section -->
     <div class="text-center max-w-xl mx-auto space-y-6 px-4">
-      <div class="flex flex-wrap items-center justify-center gap-4 text-gray-500 text-xs sm:text-sm">
+      <div class="flex flex-wrap items-center justify-center gap-4 text-gray-500 text-xs sm:text-sm mt-2.5">
         <span class="flex items-center gap-1"> 🏨 <span>4.5 Stars</span></span>
         <span class="flex items-center gap-1"> 📍 <span>City Center</span></span>
       </div>
@@ -49,7 +45,6 @@ const props = defineProps({
         At Dre Hotel, we pride ourselves on delivering exceptional comfort, impeccable service, and unforgettable experiences.
       </p>
 
-      <!-- Likes -->
       <div class="flex items-center justify-center gap-2 text-red-600 font-semibold text-base sm:text-lg">
         <svg
           xmlns="http://www.w3.org/2000/svg"

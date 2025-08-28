@@ -6,6 +6,7 @@ import axios from 'axios'
 import { toast } from 'vue3-toastify'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+// import { user } from '@/stores/user'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -63,10 +64,12 @@ const handleSignIn = async () => {
   const isFormCorrect = await v$.value.$validate()
   if (!isFormCorrect) return
 
-  let storedUsers = JSON.parse(localStorage.getItem("users")) || []
+  let storedUsers = userStore.allUsers || []
   
+  // checks if it's saving as an array in the localstorage else set to empty array
   if (!Array.isArray(storedUsers)) {
     storedUsers = []
+    userStore.allUsers = []
   }
   const userExists = storedUsers.find(u => u.email === authData.email)
   
@@ -85,15 +88,28 @@ const handleSignIn = async () => {
       password: authData.password,
     }
 
-    storedUsers.push(newUser)
-    localStorage.setItem("users", JSON.stringify(storedUsers))
+    // saving to general allusers
+    userStore.allUsers.push(newUser)
 
-    localStorage.setItem("currentUser", JSON.stringify(newUser))
+    // if (!userStore.user.users) {
+    //   userStore.user.users = []
+    // }
+
+    // sending to my user.js store
+    userStore.user.users = newUser
+    userStore.user.token = Math.random().toString(36).substring(2)
+    userStore.user.expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000
+
+    // this line create the localstorage for user
+    // localStorage.setItem("users", JSON.stringify(storedUsers))
+
+    // saves current user info
+    // localStorage.setItem("currentUser", JSON.stringify(newUser))
 
     toast.success('Account created successfully')
 
     setTimeout(() => {
-      router.push({ name: 'login' })
+      router.push({ name: 'home' })
     }, 3000)
 
     // reset form
@@ -123,7 +139,7 @@ const handleSignIn = async () => {
             v-model="authData.name"
             id="name"
             class="w-full px-4 py-3 border border-gray-300 rounded-xl 
-            focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+            focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none"
           />
         </div>
 
@@ -136,7 +152,7 @@ const handleSignIn = async () => {
             v-model="authData.email"
             id="email"
             class="w-full px-4 py-3 border border-gray-300 rounded-xl 
-            focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+            focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none"
           />
         </div>
 
@@ -149,9 +165,8 @@ const handleSignIn = async () => {
       v-model="authData.password"
       id="password"
       class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl 
-             focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+             focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none"
     />
-    <!-- Toggle Button -->
     <button
       type="button"
       class="absolute right-3 top-9 text-gray-500 hover:text-gray-700"
@@ -167,7 +182,6 @@ const handleSignIn = async () => {
              a3 3 0 11-6 0 3 3 0 016 0zm-9.193-6.193L19.193 19.193" />
       </svg>
       
-      <!-- Eye Open -->
       <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -182,8 +196,8 @@ const handleSignIn = async () => {
         <button
           :disabled="loading || v$.$invalid"
           type="submit"
-          class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold shadow 
-          hover:bg-indigo-700 transition
+          class="w-full bg-mainColor text-white py-3 rounded-xl font-semibold shadow 
+          hover:bg-[#9c2828] transition
           disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Sign Up

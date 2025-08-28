@@ -60,7 +60,7 @@ const handleLogin = async () => {
   try {
     loading.value = true
 
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || []
+    const storedUsers = userStore.allUsers || []
     const foundUser = storedUsers.find(
       u => u.email === authData.email && u.password === authData.password
     )
@@ -74,7 +74,7 @@ const handleLogin = async () => {
           expirationTime: Date.now() + 1000 * 60 * 60 * 24 * 7  
         }
 
-        localStorage.setItem("currentUser", JSON.stringify(userStore.user))
+        // localStorage.setItem("currentUser", JSON.stringify(userStore.user))
 
         toast.success('Login Successful')
         setTimeout(() => {
@@ -135,7 +135,7 @@ const handleLogin = async () => {
         v-model="authData.email"
         type="email"
         id="email"
-        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none"
       />
     </div>
 
@@ -148,7 +148,7 @@ const handleLogin = async () => {
         :type="showPassword ? 'text' : 'password'"
         id="password"
         class="w-full px-4 py-3 pr-10 border border-gray-300 rounded-xl 
-        focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+        focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none"
       />
       <button
       type="button"
@@ -179,7 +179,7 @@ const handleLogin = async () => {
 
     <div class="flex items-center justify-between text-sm">
       <RouterLink 
-        class="text-indigo-600 hover:underline"
+        class="text-indigo-600"
         :to="{ name: '' }"
       >
         Forgot password?
@@ -189,8 +189,8 @@ const handleLogin = async () => {
     <button
       :disabled="loading || v$.$invalid"
       type="submit"
-      class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold shadow 
-      hover:bg-indigo-700 transition
+      class="w-full bg-mainColor text-white py-3 rounded-xl font-semibold shadow 
+      hover:bg-[#9c2828] transition
       disabled:opacity-50 disabled:cursor-not-allowed"
     >
       Log in

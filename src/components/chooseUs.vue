@@ -41,14 +41,14 @@ const features = [
 </script>
 
 <template>
-  <section class="py-16 px-6 sm:px-8 bg-white text-gray-800">
+  <section class="py-16 px-6 sm:px-8 bg-white text-textColor">
     <div class="max-w-6xl mx-auto text-center">
       <div class="text-center max-w-3xl mx-auto">
         <h2 class="text-2xl sm:text-4xl font-semibold text-textColor drop-shadow-lg mt-5">
           Why choose Dre Hotel?
         </h2>
 
-        <p class="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed italic mt-2.5">
+        <p class="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mt-2.5">
           Discover the comfort, convenience, and timeless luxury that define every guest’s stay.
         </p>
       </div>

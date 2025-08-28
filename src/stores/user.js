@@ -11,6 +11,8 @@ export const useUserStore = defineStore('user', () => {
     const isDataFetched = ref(false)
     const Unauthorized = ref(false)
 
+    const allUsers = useStorage('allUsers', [])
+
     const user = useStorage('storeDets', {
         token: null,
         expirationTime: null,
@@ -28,57 +30,57 @@ export const useUserStore = defineStore('user', () => {
         email: null,
     })
 
-    const getUserDetails = async () => {
-        if (isDataFetched.value && user.value.users && !Unauthorized.value) {
-            return
-        }
+    // const getUserDetails = async () => {
+    //     if (isDataFetched.value && user.value.users && !Unauthorized.value) {
+    //         return
+    //     }
 
-        if (Unauthorized.value && !user.value.token) {
-            await $reset()
-            return
-        }
+    //     if (Unauthorized.value && !user.value.token) {
+    //         await $reset()
+    //         return
+    //     }
 
-        try {
-            const { data } = await axios.get('/users', {
-                headers: {
-                    Authorization: `Bearer ${user.value.token}`
-                }
-            })
+    //     try {
+    //         const { data } = await axios.get('/users', {
+    //             headers: {
+    //                 Authorization: `Bearer ${user.value.token}`
+    //             }
+    //         })
 
-            if (data.success) {
-                // getting this from data.user
-                const {
-                    email,
-                    role,
-                    privileges,
-                    ...otherUserDetails
-                }  = data['users'][0]
+    //         if (data.success) {
+    //             // getting this from data.user
+    //             const {
+    //                 email,
+    //                 role,
+    //                 privileges,
+    //                 ...otherUserDetails
+    //             }  = data['users'][0]
 
-                user.value.users = {
-                    email,
-                    role,
-                    privileges,
-                    ...otherUserDetails
-                }
+    //             user.value.users = {
+    //                 email,
+    //                 role,
+    //                 privileges,
+    //                 ...otherUserDetails
+    //             }
 
-                // might be true from backend, so if no role assined to user set to false
-                privileges.value = data?.users[0]?.privileges || {
-                    can_edit: false,
-                    can_delete: false,
-                    can_create: false,
-                }
+    //             // might be true from backend, so if no role assined to user set to false
+    //             privileges.value = data?.users[0]?.privileges || {
+    //                 can_edit: false,
+    //                 can_delete: false,
+    //                 can_create: false,
+    //             }
 
-                isDataFetched.value = true
-                Unauthorized.value = false
-            }  else {
-                toast.error("Failed to fetch user details")
-                await $reset()
-            }
-        } catch (error) {
-            console.error("Error in getUserDetails:", error)
-            Unauthorized.value = true
-        }
-    }
+    //             isDataFetched.value = true
+    //             Unauthorized.value = false
+    //         }  else {
+    //             toast.error("Failed to fetch user details")
+    //             await $reset()
+    //         }
+    //     } catch (error) {
+    //         console.error("Error in getUserDetails:", error)
+    //         Unauthorized.value = true
+    //     }
+    // }
 
     const logOut = async () => {
         try {
@@ -91,21 +93,20 @@ export const useUserStore = defineStore('user', () => {
     }
 
     const initUser = () => {
-  if (user.value && user.value.expirationTime) {
-    if (user.value.expirationTime > Date.now()) {
-      // still valid
-      return
-    } else {
-      // expired
-      localStorage.removeItem('storeDets')
-      user.value = {
-        token: null,
-        expirationTime: null,
-        users: null
-      }
+        if (user.value && user.value.expirationTime) {
+           if (user.value.expirationTime > Date.now()) {
+          // still valid
+           return
+        } else {
+        //  localStorage.removeItem('storeDets')
+         user.value = {
+           token: null,
+           expirationTime: null,
+            users: null
+         }
+       }
+     }
     }
-  }
-}
 
 
 
@@ -135,12 +136,14 @@ export const useUserStore = defineStore('user', () => {
     }
 
     return {
+        allUsers,
         user,
         privileges,
         resetData,
-        getUserDetails,
+        // getUserDetails,
         logOut,
         $reset,
-        initUser
+        initUser,
+        // loggedInUser
     }
 })

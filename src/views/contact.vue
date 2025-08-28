@@ -41,7 +41,7 @@ const submitForm = async () => {
   <section class="bg-gray-50 py-16 px-4">
     <!-- Header -->
     <div class="max-w-2xl mx-auto text-center mb-12">
-      <h2 class="text-3xl sm:text-4xl font-bold text-textColor">
+      <h2 class="text-2xl sm:text-3xl font-semibold tracking-wide text-center mb-4 text-textColor">
         Contact Dre Hotel
       </h2>
       <p class="text-gray-600 mt-3">
@@ -105,7 +105,7 @@ const submitForm = async () => {
               id="email"
               type="email"
               class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
-              placeholder="you@example.com"
+              placeholder="you@gmail.com"
             />
           </div>
 

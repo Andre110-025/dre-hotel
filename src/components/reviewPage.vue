@@ -48,26 +48,39 @@ onBeforeUnmount(() => clearInterval(intervalId))
 </script>
 
 <template>
-     <div class="bg-gray-100 py-16 px-4 sm:px-8 rounded-lg overflow-hidden">
-            <div class="max-w-3xl mx-auto text-center space-y-6">
-                <h3 class="text-2xl font-semibold mb-6">What Our Guests Say</h3>
-                <div class="relative min-h-[280px]">
-                    <transition name="slide-fade" mode="out-in">
-                        <div :key="testimonials[current].name" class="space-y-6">
-                            <div class="flex justify-center">
-                                <img
-                                    :src="testimonials[current].image"
-                                    alt="Guest profile"
-                                    class="w-[100px] h-[100px] rounded-full object-cover border-4 border-white shadow-md"
-                                />
-                            </div>
-                            <blockquote class="italic text-lg text-gray-600">
-                                “{{ testimonials[current].quote }}”
-                            </blockquote>
-                            <p class="text-gray-500">— {{ testimonials[current].name }} - {{ testimonials[current].role }}</p>
-                        </div>
-                    </transition>
-                </div>
-            </div>
+    <div class="bg-gray-100 py-12 px-4 sm:px-8 rounded-2xl overflow-hidden shadow-md">
+  <div class="max-w-2xl mx-auto text-center space-y-6">
+    <!-- Heading -->
+    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800">
+      What Our Guests Say
+    </h3>
+
+    <!-- Testimonial Container -->
+    <div class="relative min-h-[300px] flex items-center justify-center">
+      <transition name="slide-fade" mode="out-in">
+        <div :key="testimonials[current].name" class="space-y-5 px-2 sm:px-6">
+          <!-- Profile Image -->
+          <div class="flex justify-center">
+            <img
+              :src="testimonials[current].image"
+              alt="Guest profile"
+              class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white shadow-lg"
+            />
+          </div>
+
+          <!-- Quote -->
+          <blockquote class="italic text-base sm:text-lg text-gray-700 leading-relaxed">
+            “{{ testimonials[current].quote }}”
+          </blockquote>
+
+          <!-- Name & Role -->
+          <p class="text-sm sm:text-base text-gray-500 font-medium">
+            — {{ testimonials[current].name }} <span class="block sm:inline">• {{ testimonials[current].role }}</span>
+          </p>
         </div>
+      </transition>
+    </div>
+  </div>
+</div>
+
 </template>
