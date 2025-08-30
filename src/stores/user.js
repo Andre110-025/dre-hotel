@@ -19,6 +19,33 @@ export const useUserStore = defineStore('user', () => {
         users: null
     })
 
+    // const emit = defineEmits(['confirm'])
+
+    function deleteUser() {
+        if (!user.value?.users) return
+
+        allUsers.value = allUsers.value.filter(
+            (u) => u.email !== user.value.users.email
+        )
+
+        // localStorage.removeItem('storeDets')
+        user.value = {
+            token: null,
+            expirationTime: null,
+            users: null
+        }
+
+        // const toastId = toast.loading('Finalizing account deletion...')
+
+        // setTimeout(() => {
+        //     toast.success('Account deleted successfully', {
+        //         id: toastId, // replaces the loading toast
+        //     })
+        //     router.push({ name: 'login' })
+        //    // emit('confirm')
+        //    }, 3000)
+    }
+
     const privileges = ref({
         can_edit: false,
         can_delete: false,
@@ -145,5 +172,6 @@ export const useUserStore = defineStore('user', () => {
         $reset,
         initUser,
         // loggedInUser
+        deleteUser
     }
 })

@@ -9,6 +9,38 @@ const authData = ref({
 </script>
 
 <template>
+  <transition-group  name="cinematic" mode="out-in" >
+      <div
+        v-for="(img, index) in heroImages"
+        :key="img"
+        v-show="currentSlide === index"
+        class="absolute inset-0 bg-cover bg-center"
+        :style="{ backgroundImage: `url(${img})` }"
+      >
+        <div class="absolute inset-0 bg-[#000000]/50"></div>
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 space-y-6">
+          <h1 class="font-handwritten text-5xl sm:text-5xl md:text-6xl text-white">
+            Welcome to Dre-Hotel
+          </h1>
+          <p class="text-lg sm:text-xl max-w-xl font-medium leading-relaxed text-center">
+            <span
+              v-for="(word, index) in heroText[currentSlide].split(' ')"
+              :key="index"
+              class="inline-block opacity-0 translate-y-3 animate-wordSlide"
+              :style="`animation-delay: ${index * 150}ms`"
+            >
+              {{ word }}&nbsp;
+            </span>
+          </p>
+          <RouterLink 
+            to="/suites"
+            class="bg-mainColor text-white py-3 px-6 rounded-xl text-lg font-semibold shadow-md transition hover:scale-105"
+          >
+            Book Now
+          </RouterLink>
+        </div>
+      </div>
+    </transition-group>
   <div class="space-y-1 relative">
     <label for="password" class="block text-sm font-medium text-gray-700">
       Password
@@ -579,7 +611,75 @@ const handleLogin = async () => {
   }
 }
 
+function deleteUser() {
+  localStorage.removeItem('storeDets')
+  user.value = {
+    token: null,
+    expirationTime: null,
+    users: null
+  }
+}
 
+function deleteUser() {
+  if (!user.value?.users) return
+
+  // remove current user from allUsers
+  allUsers.value = allUsers.value.filter(
+    (u) => u.email !== user.value.users.email
+  )
+
+  // clear current user session
+  user.value = {
+    token: null,
+    expirationTime: null,
+    users: null
+  }
+}
+
+
+
+// Forget Password handler
+const handleResetPassword = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) return
+
+  try {
+    loading.value = true
+
+    const storedUsers = userStore.allUsers || []
+    const userIndex = storedUsers.findIndex(
+      u => u.id === userStore.resetData.id
+    )
+
+    if (userIndex !== -1) {
+      // update password
+      storedUsers[userIndex].password = authData.password
+
+      // since allUsers is bound with useStorage, this automatically updates localStorage
+      userStore.allUsers = storedUsers
+
+      toast.success('Password reset successful! Please login again.')
+
+      // clear resetData
+      userStore.resetData.id = null
+      userStore.resetData.email = null
+
+      // redirect
+      router.push({ name: 'login' })
+
+      // reset form
+      v$.value.$reset()
+      authData.password = null
+      authData.cPassword = null
+    } else {
+      toast.error("User not found")
+    }
+  } catch (error) {
+    toast.error("Something went wrong")
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 

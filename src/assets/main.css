@@ -46,7 +46,7 @@ body {
 
 .cinematic-enter-from,
 .cinematic-leave-to {
-  opacity: 0;
+  opacity: 0.5;
 }
 
 .cinematic-enter-to,

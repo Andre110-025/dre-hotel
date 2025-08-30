@@ -32,6 +32,16 @@ const router = createRouter({
           path: 'signup',
           name: 'signup',
           component: () => import('../components/authSignup.vue')
+        },
+        {
+          path: 'forgetpwd',
+          name: 'forgetpwd',
+          component: () => import('../components/authForgetPwd.vue')
+        },
+        {
+          path: 'changepwd',
+          name: 'changepwd',
+          component: () => import('../components/authChangePwd.vue')
         }
       ]
     },

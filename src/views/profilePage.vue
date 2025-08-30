@@ -1,17 +1,57 @@
 <script setup>
-import { computed } from "vue"
+import { useRouter } from "vue-router"
 import { useUserStore } from '@/stores/user'
 import IconUser from "@/components/IconUser.vue"
 import EmailTwo from "@/components/EmailTwo.vue"
 import IconLogout from "@/components/IconLogout.vue"
+import IconDelete from "@/components/IconDelete.vue"
+import { useModal } from "vue-final-modal"
+import { toast } from "vue3-toastify"
+import PopUpComfirmdelete from "@/components/popUpComfirmdelete.vue"
 
 const userStore = useUserStore()
+// const router = useRouter()
 const currentUser = userStore.user.users
 
 // let currentUser = JSON.parse(localStorage.getItem("currentUser"))
 
+// const handleDelete = () => {
+//   userStore.deleteUser()
+// }
+
+// const handleLogout = () => {
+//   userStore.logOut()
+
+//   setTimeout(() => {
+//     toast.loading('Logging user out...')
+//   }, 3000);
+// }
+
 const handleLogout = () => {
-  userStore.logOut()
+
+  const t = toast.loading('Logging user out...')
+
+  setTimeout(() => {
+    userStore.logOut()
+
+    toast.success('Logged out successfully', { id: t })
+
+    router.push({ name: 'login' })
+  }, 3000)
+}
+
+
+const openPopUp = () => {
+  const { open, close } = useModal({
+    component: PopUpComfirmdelete,
+    attrs: {
+      onConfirm() {
+        close()
+      }
+    }
+  })
+
+  open()
 }
 </script>
 
@@ -49,6 +89,21 @@ const handleLogout = () => {
           </div>
           <span class="text-gray-700 truncate max-w-[50%] text-right">
             {{ currentUser.email }}
+          </span>
+        </div>
+        
+        <div 
+          class="flex items-center justify-between py-3 text-sm sm:text-base"
+        >
+          <div 
+            class="flex items-center gap-2 sm:gap-3 cursor-pointer" 
+            @click="openPopUp"
+          >
+            <IconDelete class="w-7 h-7 sm:w-7 sm:h-7 text-gray-600"/>
+            <span class="font-medium">Delete Account</span>
+          </div>
+          <span class="text-gray-700 truncate max-w-[50%] text-right">
+            User
           </span>
         </div>
       </div>

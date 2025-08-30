@@ -41,9 +41,9 @@ const props = defineProps({
         <span class="flex items-center gap-1"> 📍 <span>City Center</span></span>
       </div>
 
-      <p class="text-gray-700 text-sm sm:text-base leading-relaxed">
+      <!-- <p class="text-gray-700 text-sm sm:text-base leading-relaxed">
         At Dre Hotel, we pride ourselves on delivering exceptional comfort, impeccable service, and unforgettable experiences.
-      </p>
+      </p> -->
 
       <div class="flex items-center justify-center gap-2 text-red-600 font-semibold text-base sm:text-lg">
         <svg

@@ -1,4 +1,8 @@
 <script setup>
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
+import { toast } from 'vue3-toastify';
+import { reactive, computed } from 'vue'
 import IconEmail from './IconEmail.vue';
 import IconFacebook from './IconFacebook.vue';
 import IconIg from './IconIg.vue';
@@ -6,6 +10,27 @@ import IconLocation from './IconLocation.vue';
 import IconPhone from './IconPhone.vue';
 import IconWhatsapp from './IconWhatsapp.vue';
 import IconX from './IconX.vue';
+
+const form = reactive({
+  email: '',
+})
+
+const rules = computed(() => ({
+  email: { email, required }
+}))
+
+const v$ = useVuelidate(rules, form)
+
+const handleSubscribe = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) {
+    toast.error('Invalid Input')
+  } else {
+    toast.success('Subscription added!')
+  }
+
+  form.email = ''
+}
 
 </script>
 
@@ -58,16 +83,19 @@ import IconX from './IconX.vue';
         <p class="text-sm text-gray-400 mb-4">
           Stay updated with our latest offers and events.
         </p>
-        <div class="flex">
+        <form @submit.prevent="handleSubscribe">
+          <div class="flex">
           <input
+            v-model="form.email"
             type="email"
             placeholder="Your email"
-            class="px-3 py-2 text-sm rounded-l-md bg-white border focus:outline-none focus:border-gray-500 text-white placeholder-gray-500 w-full"
+            class="px-3 py-2 text-sm rounded-l-md bg-white border focus:outline-none focus:border-gray-500 text-black placeholder-gray-500 w-full"
           />
           <button class="px-4 py-2 bg-mainColor text-white text-sm font-medium rounded-r-md hover:bg-mainColor transition">
             Subscribe
           </button>
         </div>
+        </form>
       </div>
     </div>
 

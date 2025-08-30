@@ -2,8 +2,11 @@
 import ChooseUs from '@/components/chooseUs.vue';
 import FooterView from '@/components/footerView.vue';
 import RoomCards from '@/components/roomCards.vue';
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, reactive, computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
+import { toast } from 'vue3-toastify';
 
 const heroImages = ref([
   '/standardRoom.png',
@@ -39,42 +42,62 @@ onMounted(() => {
 onBeforeUnmount(() => {
   clearInterval(slideId)
 })
+
+const form = reactive({
+  email: '',
+})
+
+const rules = computed(() => ({
+  email: { email, required }
+}))
+
+const v$ = useVuelidate(rules, form)
+
+const handleSubscribe = async () => {
+  const isFormCorrect = await v$.value.$validate()
+  if (!isFormCorrect) {
+    toast.error('Invalid Input')
+  } else {
+    toast.success('Subscription added!')
+  }
+
+  form.email = ''
+}
 </script>
 
 <template>
   <section class="h-[90vh] relative">
-    <transition-group  name="cinematic" mode="out-in" >
-      <div
-        v-for="(img, index) in heroImages"
-        :key="img"
-        v-show="currentSlide === index"
-        class="absolute inset-0 bg-cover bg-center"
-        :style="{ backgroundImage: `url(${img})` }"
+    <Transition name="cinematic" mode="out-in">
+  <div
+    v-if="heroImages[currentSlide]"
+    :key="heroImages[currentSlide]"
+    class="absolute inset-0 bg-cover bg-center"
+    :style="{ backgroundImage: `url(${heroImages[currentSlide]})` }"
+  >
+    <div class="absolute inset-0 bg-[#000000]/50"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 space-y-6">
+      <h1 class="font-handwritten text-5xl sm:text-5xl md:text-6xl text-white">
+        Welcome to Dre-Hotel
+      </h1>
+      <p class="text-lg sm:text-xl max-w-xl font-medium leading-relaxed text-center">
+        <span
+          v-for="(word, index) in heroText[currentSlide].split(' ')"
+          :key="index"
+          class="inline-block opacity-0 translate-y-3 animate-wordSlide"
+          :style="`animation-delay: ${index * 150}ms`"
+        >
+          {{ word }}&nbsp;
+        </span>
+      </p>
+      <RouterLink 
+        to="/suites"
+        class="bg-mainColor text-white py-3 px-6 rounded-xl text-lg font-semibold shadow-md transition hover:scale-105"
       >
-        <div class="absolute inset-0 bg-[#000000]/50"></div>
-        <div class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4 space-y-6">
-          <h1 class="font-handwritten text-5xl sm:text-5xl md:text-6xl text-white">
-            Welcome to Dre-Hotel
-          </h1>
-          <p class="text-lg sm:text-xl max-w-xl font-medium leading-relaxed text-center">
-            <span
-              v-for="(word, index) in heroText[currentSlide].split(' ')"
-              :key="index"
-              class="inline-block opacity-0 translate-y-3 animate-wordSlide"
-              :style="`animation-delay: ${index * 150}ms`"
-            >
-              {{ word }}&nbsp;
-            </span>
-          </p>
-          <RouterLink 
-            to="/suites"
-            class="bg-mainColor text-white py-3 px-6 rounded-xl text-lg font-semibold shadow-md transition hover:scale-105"
-          >
-            Book Now
-          </RouterLink>
-        </div>
-      </div>
-    </transition-group>
+        Book Now
+      </RouterLink>
+    </div>
+  </div>
+</Transition>
   </section>
 
   <div class="py-16 px-6 sm:px-12 lg:px-24">
@@ -82,7 +105,7 @@ onBeforeUnmount(() => {
       <h2 class="font-handwritten text-4xl sm:text-5xl font-normal text-textColor mb-4 tracking-wide">
         The Dre Experience
       </h2>
-      <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed italic">
+      <p class="text-gray-600 text-base sm:text-lg max-w-md sm:max-w-2xl mx-auto leading-relaxed italic">
         {{ textTwo[0] }}
       </p>
     </div>
@@ -127,20 +150,41 @@ onBeforeUnmount(() => {
         <h2 class="text-2xl sm:text-4xl font-semibold text-white drop-shadow-lg mb-4">Get Exclusive Offers</h2>
         <p class="text-gray-300 mb-8">Join our mailing list for special deals, Be the first to get our announcements and updates</p>
 
-        <form @submit.prevent class="flex flex-col sm:flex-row items-center gap-4 justify-center">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            class="w-full sm:w-[300px] px-4 py-3 rounded-lg text-black placeholder-gray-500 focus:outline-none"
-            required
-          />
-          <button
-            type="submit"
-            class="bg-mainColor hover:bg-mainColor transition text-white px-6 py-3 rounded-lg font-semibold"
-          >
-            Subscribe
-          </button>
-        </form>
+        <!-- Mobile version: button inside input -->
+<form @submit.prevent="handleSubscribe" class="flex sm:hidden items-center justify-center w-full">
+  <div class="relative w-full">
+    <input
+      type="email"
+      v-model="form.email"
+      placeholder="Enter your email"
+      class="w-full px-4 py-3 pr-28 rounded-lg text-black placeholder-gray-500 focus:outline-none"
+
+    />
+    <button
+      type="submit"
+      class="absolute right-1 top-1/2 -translate-y-1/2 bg-mainColor hover:bg-mainColor transition text-white px-4 py-2 rounded-md font-semibold text-sm"
+    >
+      Subscribe
+    </button>
+  </div>
+</form>
+
+<!-- Desktop version: side-by-side -->
+<form @submit.prevent="handleSubscribe" class="hidden sm:flex flex-row items-center gap-4 justify-center">
+  <input
+    type="email"
+    v-model="form.email"
+    placeholder="Enter your email"
+    class="w-full sm:w-[300px] px-4 py-3 rounded-lg text-black placeholder-gray-500 focus:outline-none"
+  />
+  <button
+    type="submit"
+    class="bg-mainColor hover:bg-mainColor transition text-white px-6 py-3 rounded-lg font-semibold"
+  >
+    Subscribe
+  </button>
+</form>
+
       </div>
   </section>
 
