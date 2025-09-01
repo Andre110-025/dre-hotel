@@ -1,6 +1,10 @@
 <script setup>
 import FAQs from '@/components/FAQs.vue';
 import FooterView from '@/components/footerView.vue';
+import IconAir from '@/components/IconAir.vue';
+import IconBreakfast from '@/components/IconBreakfast.vue';
+import IconLaundry from '@/components/IconLaundry.vue';
+import IconSpa from '@/components/IconSpa.vue';
 import { ref } from 'vue'
 
 const exploreText = ref(
@@ -132,7 +136,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace this with your actual IconPoolSpa component -->
-          <div class="w-10 h-10 bg-indigo-200 rounded-full flex items-center justify-center text-indigo-700 font-bold text-xl select-none">🏊‍♂️</div>
+          <IconSpa />
         </div>
         <h3 class="text-lg font-semibold mb-2">Pool & Spa</h3>
         <p class="text-sm text-gray-600">Relax in our serene spa or take a dip in the rooftop infinity pool.</p>
@@ -141,7 +145,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace with IconDining -->
-          <div class="w-10 h-10 bg-yellow-200 rounded-full flex items-center justify-center text-yellow-700 font-bold text-xl select-none">🍽️</div>
+          <IconBreakfast />
         </div>
         <h3 class="text-lg font-semibold mb-2">Dining</h3>
         <p class="text-sm text-gray-600">Enjoy gourmet meals, crafted cocktails, and curated local flavors.</p>
@@ -150,7 +154,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace with IconLaundry -->
-          <div class="w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center text-pink-700 font-bold text-xl select-none">🧺</div>
+          <IconLaundry />
         </div>
         <h3 class="text-lg font-semibold mb-2">Laundry & Room Service</h3>
         <p class="text-sm text-gray-600">24/7 room service and laundry to keep you fresh and comfortable.</p>
@@ -159,7 +163,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace with IconAirport -->
-          <div class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-700 font-bold text-xl select-none">✈️</div>
+          <IconAir />
         </div>
         <h3 class="text-lg font-semibold mb-2">Airport Transfers</h3>
         <p class="text-sm text-gray-600">Complimentary pick-up and drop-off to make your travel seamless.</p>

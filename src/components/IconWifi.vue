@@ -1,45 +1,19 @@
 <template>
-    <svg
-      :width="size"
-      :height="size"
-      viewBox="0 0 100 100"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      class="w-16 h-16"
-    >
-      <!-- Outer arc -->
-      <path
-        d="M20 55 Q50 25 80 55"
-        :stroke="color"
-        stroke-width="6"
-        stroke-linecap="round"
-      />
-      <!-- Middle arc -->
-      <path
-        d="M30 65 Q50 45 70 65"
-        :stroke="color"
-        stroke-width="6"
-        stroke-linecap="round"
-      />
-      <!-- Inner arc -->
-      <path
-        d="M40 75 Q50 65 60 75"
-        :stroke="color"
-        stroke-width="6"
-        stroke-linecap="round"
-      />
-      <!-- Dot -->
-      <circle cx="50" cy="85" r="4" :fill="color" />
-    </svg>
-  </template>
-  
-  <script setup>
-  defineProps({
-    size: { type: String, default: '' },
-    color: { type: String, default: '#911b1b' } // a clean, friendly blue
-  });
-  </script>
-  
-  <style scoped>
-  </style>
-  
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-8 h-8 p-1 rounded-md bg-slate-800 text-white" 
+    viewBox="0 0 24 24"
+  >
+    <!-- Icon from Material Symbols by Google -->
+    <path 
+      fill="currentColor" 
+      d="M12 21q-1.05 0-1.775-.725T9.5 18.5t.725-1.775T12 16t1.775.725t.725 1.775t-.725 1.775T12 21m0-11q1.875 0 3.563.6t3.062 1.65q.5.375.513.988T18.7 14.3q-.425.425-1.05.438t-1.125-.338q-.95-.65-2.1-1.025T12 13t-2.425.375t-2.1 1.025q-.5.35-1.125.325t-1.05-.45q-.425-.45-.425-1.062t.5-.988q1.375-1.05 3.063-1.638T12 10m0-6q3.125 0 5.888 1.025t4.962 2.9q.5.425.525 1.05t-.425 1.075q-.425.425-1.05.438t-1.125-.388q-1.8-1.475-4.037-2.287T12 7t-4.737.813T3.225 10.1q-.5.4-1.125.388t-1.05-.438Q.6 9.6.625 8.975t.525-1.05q2.2-1.875 4.963-2.9T12 4" 
+    />
+  </svg>
+</template>
+
+<script>
+export default {
+  name: 'MaterialSymbolsWifiRounded'
+}
+</script>

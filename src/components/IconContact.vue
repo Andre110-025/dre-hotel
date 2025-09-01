@@ -1,17 +1,10 @@
+
 <template>
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="w-5 h-5"
-        aria-hidden="true"
-    >
-        <path 
-           d="M6.62 10.79a15.91 15.91 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 
-           2.33.57 3.58.57.55 0 1 .45 1 1V20a1 1 0 0 1-1 
-           1C12.07 21 3 11.93 3 2a1 1 0 0 1 1-1h3.5c.55 0 1 
-           .45 1 1 0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 
-           1.01l-2.2 2.2Z"
-        />
-    </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><!-- Icon from Myna UI Icons by Praveen Juge - https://github.com/praveenjuge/mynaui-icons/blob/main/LICENSE --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.6 14.522c-2.395 2.52-8.504-3.534-6.1-6.064c1.468-1.545-.19-3.31-1.108-4.609c-1.723-2.435-5.504.927-5.39 3.066c.363 6.746 7.66 14.74 14.726 14.042c2.21-.218 4.75-4.21 2.215-5.669c-1.268-.73-3.009-2.17-4.343-.767M14 3a7 7 0 0 1 7 7m-7-3a3 3 0 0 1 3 3" /></svg>
 </template>
+
+<script>
+export default {
+  name: 'MynauiTelephoneCall'
+}
+</script>

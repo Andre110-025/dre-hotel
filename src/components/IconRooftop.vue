@@ -1,27 +1,23 @@
 <template>
-  <svg
-    :width="size"
-    :height="size"
-    viewBox="0 0 100 100"
-    xmlns="http://www.w3.org/2000/svg"
-    class="w-16 h-16"
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-8 h-8 p-1 rounded-md bg-slate-800 text-white" 
+    viewBox="0 0 24 24"
   >
-    <!-- Roof triangle -->
-    <path d="M10 60 L50 25 L90 60 Z" fill="#911b1b" />
-
-    <!-- Pillars under the rooftop -->
-    <rect x="20" y="60" width="6" height="20" fill="#911b1b" />
-    <rect x="37" y="60" width="6" height="20" fill="#911b1b" />
-    <rect x="54" y="60" width="6" height="20" fill="#911b1b" />
-    <rect x="71" y="60" width="6" height="20" fill="#911b1b" />
-
-    <!-- Floor base -->
-    <rect x="15" y="80" width="70" height="10" fill="#911b1b" />
+    <!-- Icon from Lucide Lab by Lucide Contributors -->
+    <path 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="2" 
+      d="M21 8H3l9-6Zm-9 0v13m-4-8h8M3 21l.7-2.1c.2-.5.7-.9 1.3-.9h12c.5 0 1.3-.4 1.6-.8L22 13m-1 8l-3.2-3.2" 
+    />
   </svg>
 </template>
 
-<script setup>
-defineProps({
-  size: { type: String, default: '' }
-});
+<script>
+export default {
+  name: 'LucideLabSunloungerParasolTable'
+}
 </script>

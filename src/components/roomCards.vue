@@ -34,7 +34,7 @@ const getHotelRooms = async (count = 6) => {
         hotels.value = response.data.results
     }   catch (err) {
         console.log(err)
-        toast.error('Something went wrong! Check Internet Connection...')
+        toast.error('Check Internet Connection!')
     }   finally {
         loading.value = false
     }

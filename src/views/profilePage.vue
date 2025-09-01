@@ -8,6 +8,7 @@ import IconDelete from "@/components/IconDelete.vue"
 import { useModal } from "vue-final-modal"
 import { toast } from "vue3-toastify"
 import PopUpComfirmdelete from "@/components/popUpComfirmdelete.vue"
+import PopUpComfirmLogout from "@/components/PopUpComfirmLogout.vue"
 
 const userStore = useUserStore()
 // const router = useRouter()
@@ -27,23 +28,36 @@ const currentUser = userStore.user.users
 //   }, 3000);
 // }
 
-const handleLogout = () => {
+// const handleLogout = () => {
 
-  const t = toast.loading('Logging user out...')
+//   const t = toast.loading('Logging user out...')
 
-  setTimeout(() => {
-    userStore.logOut()
+//   setTimeout(() => {
+//     userStore.logOut()
 
-    toast.success('Logged out successfully', { id: t })
+//     toast.success('Logged out successfully', { id: t })
 
-    router.push({ name: 'login' })
-  }, 3000)
-}
+//     router.push({ name: 'login' })
+//   }, 3000)
+// }
 
 
 const openPopUp = () => {
   const { open, close } = useModal({
     component: PopUpComfirmdelete,
+    attrs: {
+      onConfirm() {
+        close()
+      }
+    }
+  })
+
+  open()
+}
+
+const openSecondPopUp = () => {
+  const { open, close } = useModal({
+    component: PopUpComfirmLogout,
     attrs: {
       onConfirm() {
         close()
@@ -111,7 +125,7 @@ const openPopUp = () => {
       <!-- Logout -->
       <button
         v-if="currentUser"
-        @click="handleLogout"
+        @click="openSecondPopUp"
         class="flex items-center justify-center gap-2 w-full bg-slate-800 text-white py-2.5 rounded-xl font-medium hover:bg-slate-700 transition text-sm sm:text-base"
       >
         <IconLogout class="w-5 h-5"/>

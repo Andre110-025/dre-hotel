@@ -33,7 +33,7 @@ const rules = computed(() => ({
     checkOut: { required }
 }))
 
-console.log(form)
+// console.log(form)
 
 const v$ = useVuelidate(rules, form)
 
@@ -78,7 +78,10 @@ const totalCost = computed(() => {
 
 const handleForm = async () => {
   const isFormCorrect = await v$.value.$validate()
-  if (!isFormCorrect) return
+  if (!isFormCorrect) {
+      console.log(v$.value.$errors)
+      return
+  }
 
   loading.value = true
 
@@ -241,7 +244,9 @@ const handleForm = async () => {
                 <button
                     :disabled="loading || v$.$invalid"
                     type="submit"
-                    class="w-full bg-gradient-to-r from-mainColor to-slate-900 text-white py-3 rounded-xl font-semibold shadow-md hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="w-full bg-mainColor text-white py-3 rounded-xl font-semibold shadow 
+          hover:bg-[#9c2828] transition
+          disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Confirm Booking
                 </button>

@@ -81,88 +81,98 @@ watch(showMenu, (val) => {
 
     <!-- Mobile Sidebar -->
     <transition name="slide">
-      <div
-        v-if="showMenu"
-        class="fixed top-0 right-0 w-72 h-full bg-white shadow-2xl z-50 flex flex-col p-6"
-      >
-        <button @click="showMenu = false" class="self-end mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-mainColor" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+  <div
+    v-if="showMenu"
+    class="fixed top-0 right-0 w-72 h-full bg-white shadow-2xl z-50 flex flex-col p-6"
+  >
+    <!-- Close Button -->
+    <button @click="showMenu = false" class="self-end mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-mainColor" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
 
-        <div class="flex flex-col space-y-2">
-          <RouterLink
-            :to="{ name: 'home' }"
-            class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
-            active-class="bg-gray-100 text-mainColor font-semibold"
-            @click="showMenu = false"
-          >
-            <IconHome class="w-5 h-5" />
-            <span>Home</span>
-            </RouterLink>
+    <!-- Menu content wrapper -->
+    <div class="flex flex-col justify-between h-full">
+      
+      <!-- Top links -->
+      <div class="flex flex-col space-y-2">
+        <RouterLink
+          :to="{ name: 'home' }"
+          class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
+          active-class="bg-gray-100 text-mainColor font-semibold"
+          @click="showMenu = false"
+        >
+          <IconHome class="w-5 h-5" />
+          <span>Home</span>
+        </RouterLink>
 
-            <RouterLink
-              :to="{ name: 'about' }"
-              class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
-              active-class="bg-gray-100 text-mainColor font-semibold"
-              @click="showMenu = false"
-            >
-              <IconAboutUs class="w-5 h-5" />
-              <span>About us</span>
-            </RouterLink>
+        <RouterLink
+          :to="{ name: 'about' }"
+          class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
+          active-class="bg-gray-100 text-mainColor font-semibold"
+          @click="showMenu = false"
+        >
+          <IconAboutUs class="w-5 h-5" />
+          <span>About us</span>
+        </RouterLink>
 
-            <RouterLink
-              :to="{ name: 'explore' }"
-              class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
-              active-class="bg-gray-100 text-mainColor font-semibold"
-              @click="showMenu = false"
-            >
-              <IconExplore class="w-5 h-5" />
-              <span>Explore</span>
-            </RouterLink>
+        <RouterLink
+          :to="{ name: 'explore' }"
+          class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
+          active-class="bg-gray-100 text-mainColor font-semibold"
+          @click="showMenu = false"
+        >
+          <IconExplore class="w-5 h-5" />
+          <span>Explore</span>
+        </RouterLink>
 
-            <RouterLink
-              :to="{ name: 'suites' }"
-              class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
-              active-class="bg-gray-100 text-mainColor font-semibold"
-              @click="showMenu = false"
-            >
-              <IconSuites class="w-5 h-5" />
-              <span>Suites</span>
-            </RouterLink>
+        <RouterLink
+          :to="{ name: 'suites' }"
+          class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
+          active-class="bg-gray-100 text-mainColor font-semibold"
+          @click="showMenu = false"
+        >
+          <IconSuites class="w-5 h-5" />
+          <span>Suites</span>
+        </RouterLink>
 
-            <RouterLink
-              :to="{ name: 'contact' }"
-              class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
-              active-class="bg-gray-100 text-mainColor font-semibold"
-              @click="showMenu = false"
-            >
-              <IconContact class="w-5 h-5" />
-              <span>Contact</span>
-            </RouterLink>
-
-            <RouterLink 
-              v-if="!isLoggedIn"
-              :to="{ name: 'login' }"
-              class="ml-1 mt-4.5 flex items-center justify-center gap-2 w-[235px] bg-mainColor text-white py-1.5 rounded-xl font-medium hover:bg-[#9c2828] transition text-sm sm:text-base"
-              @click="showMenu = false"
-            >
-              <IconSignIn class="w-7 h-7" />
-              <span>Sign In</span>
-            </RouterLink>
-
-            <RouterLink 
-              v-else 
-              :to="{ name: 'profile' }"
-              @click="showMenu = false"
-              class="ml-1 mt-4.5 flex items-center justify-center gap-2 w-[235px] bg-slate-800 text-white py-1.5 rounded-xl font-medium hover:bg-slate-700 transition text-sm sm:text-base"
-            >
-              <IconLogout class="w-7 h-7" />
-              <span>Log out</span>
-            </RouterLink>
-          </div>
+        <RouterLink
+          :to="{ name: 'contact' }"
+          class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
+          active-class="bg-gray-100 text-mainColor font-semibold"
+          @click="showMenu = false"
+        >
+          <IconContact class="w-5 h-5" />
+          <span>Contact</span>
+        </RouterLink>
       </div>
-    </transition>
+
+      <!-- Bottom auth buttons -->
+      <div>
+        <RouterLink 
+          v-if="!isLoggedIn"
+          :to="{ name: 'login' }"
+          class="ml-1 mt-4.5 flex items-center justify-center gap-2 w-[235px] bg-mainColor text-white py-1.5 rounded-xl font-medium hover:bg-[#9c2828] transition text-sm sm:text-base"
+          @click="showMenu = false"
+        >
+          <IconSignIn class="w-7 h-7" />
+          <span>Sign In</span>
+        </RouterLink>
+
+        <RouterLink 
+          v-else 
+          :to="{ name: 'profile' }"
+          @click="showMenu = false"
+          class="ml-1 mt-4.5 flex items-center justify-center gap-2 w-[235px] bg-slate-800 text-white py-1.5 rounded-xl font-medium hover:bg-slate-700 transition text-sm sm:text-base"
+        >
+          <IconLogout class="w-7 h-7" />
+          <span>Log out</span>
+        </RouterLink>
+      </div>
+
+    </div>
+  </div>
+</transition>
   </div>
 </template>

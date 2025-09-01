@@ -6,6 +6,9 @@ import { toast } from 'vue3-toastify';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import { computed, reactive } from 'vue';
+import IconPhone from '@/components/IconPhone.vue';
+import IconEmail from '@/components/IconEmail.vue';
+import IconLocation from '@/components/IconLocation.vue';
 
 const authData = reactive({
   name: '',
@@ -55,7 +58,7 @@ const submitForm = async () => {
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
           <div class="flex items-center gap-4">
-            <PhoneTwo class="w-6 h-6 text-mainColor" />
+            <IconPhone class="" />
             <div>
               <h3 class="font-semibold text-textColor">Phone</h3>
               <p class="text-gray-600">(832)-624-7087</p>
@@ -65,7 +68,7 @@ const submitForm = async () => {
 
         <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
           <div class="flex items-center gap-4">
-            <EmailTwo class="w-6 h-6 text-mainColor" />
+            <IconEmail class="" />
             <div>
               <h3 class="font-semibold text-textColor">Email</h3>
               <p class="text-gray-600">info@andrehotel.com</p>
@@ -75,7 +78,7 @@ const submitForm = async () => {
 
         <div class="bg-white p-6 rounded-xl shadow hover:shadow-md transition">
           <div class="flex items-center gap-4">
-            <LocationTwo class="w-6 h-6 text-mainColor" />
+            <IconLocation class="" />
             <div>
               <h3 class="font-semibold text-textColor">Address</h3>
               <p class="text-gray-600">Cape Verde, Santa Maria (Sal Island)</p>
@@ -93,7 +96,7 @@ const submitForm = async () => {
               v-model="authData.name"
               id="name"
               type="text"
-              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
               placeholder="John Doe"
             />
           </div>
@@ -104,7 +107,7 @@ const submitForm = async () => {
               v-model="authData.email"
               id="email"
               type="email"
-              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
               placeholder="you@gmail.com"
             />
           </div>
@@ -115,7 +118,7 @@ const submitForm = async () => {
               v-model="authData.message"
               id="message"
               rows="5"
-              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+              class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
               placeholder="Your message..."
             ></textarea>
           </div>

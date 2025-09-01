@@ -1,29 +1,26 @@
 <template>
-    <div class="group w-16 h-16 transition-transform duration-300 hover:scale-105 hover:brightness-110">
-      <svg
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-full h-full text-mainColor"
-        fill="none"
-      >
-        <!-- Modern Lotus Icon -->
-        <path
-          d="M50 80 C30 80 20 60 20 50 C20 40 30 20 50 20 C70 20 80 40 80 50 C80 60 70 80 50 80"
-          fill="currentColor"
-          class="opacity-70"
-        />
-        <path
-          d="M50 70 C35 70 25 55 25 50 C25 45 35 30 50 30 C65 30 75 45 75 50 C75 55 65 70 50 70"
-          fill="currentColor"
-          class="opacity-80"
-        />
-        <path
-          d="M50 60 C40 60 35 55 35 50 C35 45 40 40 50 40 C60 40 65 45 65 50 C65 55 60 60 50 60"
-          fill="currentColor"
-          class="opacity-90"
-        />
-        <circle cx="50" cy="50" r="10" fill="#fff" class="opacity-90" />
-      </svg>
-    </div>
-  </template>
-  
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-8 h-8 p-1 rounded-md bg-slate-800 text-white" 
+    viewBox="0 0 24 24"
+  >
+    <!-- Icon from Huge Icons -->
+    <g 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-linecap="round" 
+      stroke-linejoin="round" 
+      stroke-width="1.5" 
+      color="currentColor"
+    >
+      <path d="M4 14.07c1.015 0 2.431-.302 3.32.35l1.762 1.29c.655.48 1.364.322 2.095.208c.962-.151 1.823.67 1.823 1.738c0 .292-2.073 1.035-2.372 1.176a1.75 1.75 0 0 1-1.798-.182l-1.988-1.457" />
+      <path d="m13 17l4.091-1.89a1.98 1.98 0 0 1 2.089.515l.67.701c.24.25.184.672-.113.844l-7.854 4.561a1.96 1.96 0 0 1-1.552.187L4 20.027M12.002 12s2.1-2.239 2.1-5s-2.1-5-2.1-5s-2.1 2.239-2.1 5s2.1 5 2.1 5m0 0s3.067-.068 5-2.04c1.933-1.973 2-5.103 2-5.103s-1.27.028-2.69.574M12.002 12s-3.067-.068-5-2.04c-1.933-1.973-2-5.103-2-5.103s1.27.028 2.69.574" />
+    </g>
+  </svg>
+</template>
+
+<script>
+export default {
+  name: 'HugeiconsWellness'
+}
+</script>

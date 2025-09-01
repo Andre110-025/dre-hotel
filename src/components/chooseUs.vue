@@ -44,7 +44,7 @@ const features = [
   <section class="py-16 px-6 sm:px-8 bg-white text-textColor">
     <div class="max-w-6xl mx-auto text-center">
       <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-2xl sm:text-4xl font-semibold text-textColor drop-shadow-lg mt-5">
+        <h2 class="text-3xl sm:text-4xl font-semibold text-black mt-5">
           Why choose Dre Hotel?
         </h2>
 
@@ -62,7 +62,7 @@ const features = [
         >
           <component
             :is="feature.icon"
-            class="w-12 h-12 mx-auto mb-4 p-3 bg-indigo-100 rounded-full text-indigo-600 icon-hover"
+            class="mx-auto mb-4 p-3 bg-indigo-100 rounded-full text-indigo-600 icon-hover"
             aria-hidden="true"
           />
           <h3

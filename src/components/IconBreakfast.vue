@@ -1,19 +1,19 @@
 <template>
-  <div class="group w-16 h-16 transition-transform duration-300 hover:scale-105 hover:brightness-110">
-    <svg
-      viewBox="0 0 100 100"
-      xmlns="http://www.w3.org/2000/svg"
-      class="w-full h-full text-mainColor"
-      fill="none"
-    >
-      <!-- Breakfast tray -->
-      <rect x="20" y="60" width="60" height="10" rx="2" fill="currentColor" />
-      <!-- Plate -->
-      <circle cx="50" cy="50" r="15" fill="currentColor" />
-      <circle cx="50" cy="50" r="10" fill="#FFF" />
-      <!-- Coffee cup -->
-      <path d="M65 60 L70 45 A5 5 0 0 1 75 45 L80 60" fill="currentColor" />
-      <rect x="70" y="40" width="10" height="5" fill="currentColor" />
-    </svg>
-  </div>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-8 h-8 p-1 rounded-md bg-slate-800 text-white" 
+    viewBox="0 0 16 16"
+  >
+    <!-- Icon from Fluent UI System Icons by Microsoft Corporation -->
+    <path 
+      fill="currentColor" 
+      d="M6.723 1.054a.5.5 0 0 1 .265.335C7.006 1.468 7.5 3.582 7.5 5c0 .95-.442 1.797-1.13 2.346c-.25.2-.37.418-.37.6v.486q0 .035.004.066c.034.248.157 1.169.272 2.124c.113.937.224 1.959.224 2.378a2 2 0 1 1-4 0c0-.42.111-1.44.224-2.378c.115-.955.238-1.876.272-2.124L3 8.432v-.486c0-.182-.12-.4-.37-.6A3 3 0 0 1 1.5 5c0-1.413.49-3.516.512-3.61A.505.505 0 0 1 2.505 1c.28 0 .507.227.507.507v2.998A.495.495 0 1 0 4 4.5v-3a.5.5 0 0 1 1 0v3.026a.495.495 0 0 0 .99-.021v-3c0-.279.226-.505.506-.505c.022 0 .12 0 .227.054M9 5.5A4.5 4.5 0 0 1 13.5 1a.5.5 0 0 1 .5.5v5.973l.019.177a262 262 0 0 1 .229 2.24c.123 1.256.252 2.664.252 3.11a2 2 0 1 1-4 0c0-.446.129-1.854.252-3.11c.063-.637.126-1.247.173-1.699l.02-.191H10a1 1 0 0 1-1-1z" 
+    />
+  </svg>
 </template>
+
+<script>
+export default {
+  name: 'FluentFood16Filled'
+}
+</script>
