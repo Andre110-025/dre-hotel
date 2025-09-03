@@ -10,6 +10,11 @@ import IconContact from '@/components/IconContact.vue'
 import IconUser from '@/components/IconUser.vue'
 import IconLogout from '@/components/IconLogout.vue'
 import IconSignIn from '@/components/IconSignIn.vue'
+import IconAboutUsFilled from '@/components/IconAboutUsFilled.vue'
+import IconHomeFilled from '@/components/IconHomeFilled.vue'
+import IconExploreFilled from '@/components/IconExploreFilled.vue'
+import IconSuitesFilled from '@/components/IconSuitesFilled.vue'
+import IconContactFilled from '@/components/IconContactFilled.vue'
 
 const userStore = useUserStore()
 const isLoggedIn = computed(() => 
@@ -83,7 +88,7 @@ watch(showMenu, (val) => {
     <transition name="slide">
   <div
     v-if="showMenu"
-    class="fixed top-0 right-0 w-72 h-full bg-white shadow-2xl z-50 flex flex-col p-6"
+    class="fixed top-0 right-0 w-[275px] h-full bg-white shadow-2xl z-50 flex flex-col p-6"
   >
     <!-- Close Button -->
     <button @click="showMenu = false" class="self-end mb-6">
@@ -99,51 +104,71 @@ watch(showMenu, (val) => {
       <div class="flex flex-col space-y-2">
         <RouterLink
           :to="{ name: 'home' }"
+          v-slot="{ isActive }"
           class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
           active-class="bg-gray-100 text-mainColor font-semibold"
           @click="showMenu = false"
         >
-          <IconHome class="w-5 h-5" />
+           <component
+            :is="isActive ? IconHomeFilled : IconHome"
+            class="w-5 h-5"
+          />
           <span>Home</span>
         </RouterLink>
 
         <RouterLink
           :to="{ name: 'about' }"
+          v-slot="{ isActive }"
           class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
           active-class="bg-gray-100 text-mainColor font-semibold"
           @click="showMenu = false"
         >
-          <IconAboutUs class="w-5 h-5" />
-          <span>About us</span>
+          <component
+            :is="isActive ? IconAboutUsFilled : IconAboutUs"
+            class="w-5 h-5"
+          />
+            <span>About us</span>
         </RouterLink>
 
         <RouterLink
           :to="{ name: 'explore' }"
+          v-slot="{ isActive }"
           class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
           active-class="bg-gray-100 text-mainColor font-semibold"
           @click="showMenu = false"
         >
-          <IconExplore class="w-5 h-5" />
+          <component
+            :is="isActive ? IconExploreFilled : IconExplore"
+            class="w-5 h-5"
+          />
           <span>Explore</span>
         </RouterLink>
 
         <RouterLink
           :to="{ name: 'suites' }"
+          v-slot="{ isActive }"
           class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
           active-class="bg-gray-100 text-mainColor font-semibold"
           @click="showMenu = false"
         >
-          <IconSuites class="w-5 h-5" />
+          <component
+            :is="isActive ? IconSuitesFilled : IconSuites"
+            class="w-5 h-5"
+          />
           <span>Suites</span>
         </RouterLink>
 
         <RouterLink
           :to="{ name: 'contact' }"
+          v-slot="{ isActive }"
           class="flex flex-row items-center gap-3 px-2 py-1 rounded-lg hover:bg-gray-100 hover:text-mainColor transition"
           active-class="bg-gray-100 text-mainColor font-semibold"
           @click="showMenu = false"
         >
-          <IconContact class="w-5 h-5" />
+          <component
+            :is="isActive ? IconContactFilled : IconContact"
+            class="w-5 h-5"
+          />
           <span>Contact</span>
         </RouterLink>
       </div>

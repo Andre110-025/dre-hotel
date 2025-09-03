@@ -165,20 +165,24 @@ const heroText = ref(
     </div>
 </div>
 
-    <div class="py-16 px-6 sm:px-12 space-y-20">
+    <div class="py-10 px-6 sm:px-12 space-y-20">
         <FAQs />
     </div>
 
-    <section class="bg-gray-800 text-white py-12 text-center px-4">
-     <h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-wide text-center text-white mb-4">Found Your Dream Room?</h2>
-  <p class="text-lg mb-6">Reserve now to enjoy early check-in and special offers.</p>
+    <section class="bg-gray-800 text-white py-14 px-5 text-center">
+  <h2 class="text-xl sm:text-3xl md:text-4xl font-semibold tracking-wide mb-4 leading-snug">
+    Found Your Dream Room?
+  </h2>
+  <p class="text-base sm:text-lg mb-8 leading-relaxed text-gray-300">
+    Reserve now to enjoy early check-in and special offers.
+  </p>
   <RouterLink
     to=""
-    class="inline-block bg-mainColor text-white font-semibold px-6 py-3 rounded-full shadow"
+    class="inline-block bg-mainColor text-white font-semibold px-6 py-3 rounded-full shadow hover:bg-mainColor/90 transition"
   >
     Book a Room
   </RouterLink>
-    </section>
+</section>
     
     <footer>
         <FooterView />

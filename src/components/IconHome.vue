@@ -1,10 +1,10 @@
 
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M4 19v-7.375L3 12.4q-.35.25-.75.2t-.65-.4t-.187-.75t.387-.65l8.975-6.875q.275-.2.588-.3t.637-.1t.638.1t.587.3l9 6.875q.325.25.375.65t-.2.75q-.25.325-.65.375t-.725-.2L20 11.625V19q0 .825-.587 1.413T18 21H6q-.825 0-1.412-.587T4 19m4-4q.425 0 .713-.288T9 14t-.288-.712T8 13t-.712.288T7 14t.288.713T8 15m4 0q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m4 0q.425 0 .713-.288T17 14t-.288-.712T16 13t-.712.288T15 14t.288.713T16 15" /></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M5 18.385v-7.53l-1.538 1.199q-.178.135-.366.104t-.323-.208t-.11-.365q.023-.189.195-.324l8.148-6.259q.217-.162.472-.243T12 4.68t.513.08t.462.243l8.173 6.26q.171.134.193.322q.02.189-.114.366q-.135.171-.323.202q-.188.03-.36-.104L19 10.856v7.529q0 .67-.472 1.143q-.472.472-1.143.472H6.615q-.67 0-1.143-.472Q5 19.056 5 18.385M6.616 19h10.769q.269 0 .442-.173t.173-.442V10.1l-5.634-4.286q-.154-.135-.366-.135t-.365.134L6 10.1v8.285q0 .269.173.442t.443.173M8 14.77q.31 0 .54-.23t.23-.54t-.23-.54t-.54-.23t-.54.23t-.23.54t.23.54t.54.23m4 0q.31 0 .54-.23t.23-.54t-.23-.54t-.54-.23t-.54.23t-.23.54t.23.54t.54.23m4 0q.31 0 .54-.23t.23-.54t-.23-.54t-.54-.23t-.54.23t-.23.54t.23.54t.54.23M6.616 19H6h12z" /></svg>
 </template>
 
 <script>
 export default {
-  name: 'MaterialSymbolsOtherHousesRounded'
+  name: 'MaterialSymbolsLightOtherHousesOutlineRounded'
 }
 </script>

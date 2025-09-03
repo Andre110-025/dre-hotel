@@ -24,7 +24,7 @@ const v$ = useVuelidate(rules, form)
 const handleSubscribe = async () => {
   const isFormCorrect = await v$.value.$validate()
   if (!isFormCorrect) {
-    toast.error('Invalid Input')
+    toast.warning('Add a valid email')
   } else {
     toast.success('Subscription added!')
   }

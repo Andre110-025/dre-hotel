@@ -44,14 +44,15 @@ const features = [
   <section class="py-16 px-6 sm:px-8 bg-white text-textColor">
     <div class="max-w-6xl mx-auto text-center">
       <div class="text-center max-w-3xl mx-auto">
-        <h2 class="text-3xl sm:text-4xl font-semibold text-black mt-5">
-          Why choose Dre Hotel?
-        </h2>
+  <h2 class="text-2xl sm:text-4xl font-semibold text-black mt-5">
+    Why choose Dre Hotel?
+  </h2>
 
-        <p class="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mt-2.5">
-          Discover the comfort, convenience, and timeless luxury that define every guest’s stay.
-        </p>
-      </div>
+  <p class="text-gray-600 text-base sm:text-xl max-w-2xl mx-auto leading-snug sm:leading-relaxed mt-2.5">
+    Discover the comfort, convenience, and timeless luxury that define every guest’s stay.
+  </p>
+</div>
+
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-5">
         <div
           v-for="(feature, i) in features"
@@ -61,10 +62,10 @@ const features = [
           :aria-labelledby="`feature-title-${i}`"
         >
           <component
-            :is="feature.icon"
-            class="mx-auto mb-4 p-3 bg-indigo-100 rounded-full text-indigo-600 icon-hover"
-            aria-hidden="true"
-          />
+  :is="feature.icon"
+  class="w-10 h-10 mx-auto mb-4 p-3 bg-indigo-100 rounded-full text-indigo-600 icon-hover"
+  aria-hidden="true"
+/>
           <h3
             :id="`feature-title-${i}`"
             class="text-lg font-semibold mb-2 tracking-wide text-gray-900"

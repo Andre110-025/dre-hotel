@@ -1,10 +1,10 @@
 
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><!-- Icon from Guidance by Streamline - https://creativecommons.org/licenses/by/4.0/ --><path fill="none" stroke="currentColor" d="M1.5 18.5V14l.676-.184a37.34 37.34 0 0 1 19.648 0L22.5 14v4.5m-21 0s0 3-1.5 3m1.5-3h21m0 0s0 3 1.5 3M3.5 11c0-1.989-.297-3.966-.882-5.867L2.5 4.75V4.5h19v.25l-.118.383A20 20 0 0 0 20.5 11M12 7.5H6.5V11M12 7.5V11m0-3.5h5.5V11" /></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M7 14c1.66 0 3-1.34 3-3S8.66 8 7 8s-3 1.34-3 3s1.34 3 3 3m0-4c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1m12-3h-8v8H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4m2 8h-8V9h6c1.1 0 2 .9 2 2z" /></svg>
 </template>
 
 <script>
 export default {
-  name: 'GuidanceHotelRoom'
+  name: 'IcOutlineHotel'
 }
 </script>

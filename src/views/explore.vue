@@ -174,8 +174,13 @@ const exploreText = ref(
 
 <section class="py-16 px-4 sm:px-8 bg-gray-50">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-2xl sm:text-3xl font-semibold tracking-wide text-center mb-4 text-textColor">Nearby Attractions</h2>
-    <p class="text-center text-gray-600 mb-12">From iconic landmarks to hidden gems, explore what surrounds Dre Hotel.</p>
+    <h2 class="text-xl sm:text-3xl font-semibold tracking-wide text-center mb-3 text-textColor">
+  Nearby Attractions
+</h2>
+<p class="text-center text-gray-600 text-sm sm:text-base mb-10">
+  From iconic landmarks to hidden gems, explore what surrounds Dre Hotel.
+</p>
+
 
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-12 px-4">
       <div class="bg-white rounded-lg shadow hover:shadow-md transition overflow-hidden">
@@ -222,7 +227,7 @@ const exploreText = ref(
   </div>
 </div>
 
-    <div class="py-6 px-6 sm:px-12 space-y-20">
+    <div class="">
       <FAQs />
     </div>
   </div>

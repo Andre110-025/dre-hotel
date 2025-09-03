@@ -1,17 +1,19 @@
 <script setup>
-import router from '@/router';
+// import router from '@/router';
+import { useRouter } from 'vue-router'
 import { useRoute } from 'vue-router'
 import { ref, computed, reactive } from 'vue'
 import { toast } from 'vue3-toastify';
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import { useBookingStore } from '@/stores/booking'
+// import { useBookingStore } from '@/stores/booking'
 
 
-const bookingStore = useBookingStore()
-const currentBooking = computed(() => bookingStore.currentBooking)
-console.log(currentBooking.value?.price)
+// const bookingStore = useBookingStore()
+// const currentBooking = computed(() => bookingStore.currentBooking)
+// console.log(currentBooking.value?.price)
 const route = useRoute()
+const router = useRouter()
 const loading = ref(false)
 const finalPrice = computed(() => Number(route.query.finalPrice) || 0)
 
@@ -58,68 +60,75 @@ const handleForm = async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50 flex items-center justify-center p-3">
-    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-6">
+  <div class="min-h-screen bg-gray-50 flex items-center justify-center p-2 sm:p-3">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-3 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
       
-      <div class="text-center">
-        <h1 class="text-2xl font-bold text-gray-800">Payment Details</h1>
-        <p class="text-gray-500 mt-2">Secure checkout for your booking</p>
+      <!-- Header -->
+      <div class="text-center space-y-1 sm:space-y-2">
+        <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Payment Details</h1>
+        <p class="text-xs sm:text-sm text-gray-500">Secure checkout for your booking</p>
       </div>
 
-      <div class="bg-gray-100 p-4 rounded-xl flex justify-between items-center">
+      <!-- Amount Box -->
+      <div class="bg-gray-100 p-3 sm:p-4 rounded-xl flex justify-between items-center">
         <div>
-          <p class="text-sm text-gray-500">Amount to Pay</p>
-          <p class="text-lg font-semibold text-gray-800">${{ finalPrice }}</p>
+          <p class="text-xs sm:text-sm text-gray-500">Amount to Pay</p>
+          <p class="text-base sm:text-lg font-semibold text-gray-800">${{ finalPrice }}</p>
         </div>
-        <span class="text-green-600 font-semibold">✔ Secure</span>
+        <span class="text-green-600 font-semibold text-xs sm:text-sm">✔ Secure</span>
       </div>
 
-      <form class="space-y-4" @submit.prevent="handleForm">
+      <!-- Payment Form -->
+      <form class="space-y-3 sm:space-y-4" @submit.prevent="handleForm">
+        
+        <!-- Card Info -->
         <div>
-  <label class="block text-sm font-medium text-gray-700 mb-1">Card Information</label>
-  <div class="relative">
-    <input
-      v-model="form.cardInfo"
-      type="text"
-      placeholder="1234 5678 9012"
-      class="mt-1 w-full pr-20 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
-    />
-    <div class="absolute right-3 top-1/2 -translate-y-1/2 flex space-x-1">
-      <img src="/visa.png" alt="Visa" class="h-6" />
-      <img src="/masterCard.png" alt="Mastercard" class="h-6" />
-      <img src="/shopping.png" alt="Amex" class="h-6" />
-    </div>
-  </div>
-</div>
+          <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Card Information</label>
+          <div class="relative">
+            <input
+              v-model="form.cardInfo"
+              type="text"
+              placeholder="1234 5678 9012"
+              class="w-full pr-20 px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm sm:text-base"
+            />
+            <div class="absolute right-2 top-1/2 -translate-y-1/2 flex space-x-1">
+              <img src="/visa.png" alt="Visa" class="h-3 sm:h-5" />
+              <img src="/masterCard.png" alt="Mastercard" class="h-3 sm:h-5" />
+              <img src="/shopping.png" alt="Amex" class="h-3 sm:h-5" />
+            </div>
+          </div>
+        </div>
 
-
-        <div class="flex gap-4">
+        <!-- Expiry + CVV -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
           <input
             v-model="form.date"
             type="text"
             placeholder="MM/YY"
-            class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
+            class="w-full sm:w-1/2 px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm sm:text-base"
           />
           <input
             v-model="form.cvv"
             type="text"
             placeholder="CVV"
-            class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition"
+            class="w-full sm:w-1/2 px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm sm:text-base"
           />
         </div>
 
+        <!-- Submit Button -->
         <button
           :disabled="loading || v$.$invalid"
           type="submit"
-          class="w-full bg-mainColor text-white py-3 rounded-xl font-semibold shadow 
+          class="w-full bg-mainColor text-white py-2 sm:py-3 rounded-xl font-semibold shadow 
           hover:bg-mainColor transition
-          disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           Pay Now
         </button>
       </form>
 
-      <p class="text-center text-sm text-gray-500">
+      <!-- Footer Note -->
+      <p class="text-center text-xs sm:text-sm text-gray-500">
         Your payment is secured with 256-bit encryption 🔒
       </p>
     </div>

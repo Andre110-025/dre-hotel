@@ -31,21 +31,21 @@ const toggleFAQ = (index) => {
 
 
 <template>
-<section class="bg-gray-100 py-12 px-4">
-  <div class="max-w-xl mx-auto text-center mb-8">
-    <h2 class="text-2xl sm:text-3xl font-semibold tracking-wide mb-3 text-textColor">
+<section class="bg-gray-100 py-14 px-5">
+  <div class="max-w-xl mx-auto text-center mb-10">
+    <h2 class="text-2xl sm:text-3xl font-semibold tracking-wide mb-4 text-textColor leading-snug">
       Frequently Asked Questions
     </h2>
-    <p class="text-gray-600 text-base sm:text-lg">
+    <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
       Answers to some common questions about Dre Hotel.
     </p>
   </div>
 
-  <div class="max-w-xl mx-auto space-y-3">
+  <div class="max-w-xl mx-auto space-y-5">
     <div
       v-for="(faq, index) in faqs"
       :key="index"
-      class="bg-white rounded-lg shadow p-4 cursor-pointer transition hover:shadow-md"
+      class="bg-white rounded-lg shadow p-5 sm:p-6 cursor-pointer transition hover:shadow-md"
       @click="toggleFAQ(index)"
     >
       <div class="font-medium text-base sm:text-lg text-gray-800 flex justify-between items-center">
@@ -62,12 +62,11 @@ const toggleFAQ = (index) => {
       </div>
 
       <transition name="fade-slide">
-        <p v-show="faq.open" class="mt-2 text-gray-600 text-sm sm:text-base leading-relaxed">
+        <p v-show="faq.open" class="mt-3 text-gray-600 text-sm sm:text-base leading-relaxed">
           {{ faq.answer }}
         </p>
       </transition>
     </div>
   </div>
 </section>
-
 </template>

@@ -95,6 +95,11 @@ const router = createRouter({
       name: 'contact',
       component: () => import('../views/contact.vue'),
     },
+    {
+      path: '/lassaTestPayment',
+      name: 'lassaTestPayment',
+      component: () => import('../views/lassaTestPayment.vue')
+    }
   ],
 
   linkExactActiveClass: 'text-mainColor font-semibold',

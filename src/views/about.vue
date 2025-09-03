@@ -150,28 +150,30 @@ const textThree = ref(
         <ReviewPage />
     </section>
 
-    <section class="bg-gray-800 text-white py-10 px-4 sm:px-8">
-        <div class="max-w-4xl mx-auto text-center space-y-6">
-            <h2 class="text-2xl sm:text-3xl font-semibold tracking-wide">Ready to Experience It?</h2>
-            <p class="text-gray-300 text-base sm:text-lg">
-                Discover a stay that blends comfort, elegance, and unmatched hospitality. Your journey starts here.
-            </p>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <RouterLink 
-                    to="/explore"
-                    class="bg-mainColor text-white font-semibold py-3 px-6 rounded-lg hover:bg-mainColor transition"
-                >
-                    Book Now
-                </RouterLink>
-                <RouterLink
-                    to="/contact"
-                    class="bg-white text-textColor font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-neutral-900 transition"
-                >
-                    Contact Us
-                </RouterLink>
-            </div>
-        </div>
-    </section>
+    <section class="bg-gray-800 text-white py-8 sm:py-12 px-4 sm:px-8">
+  <div class="max-w-4xl mx-auto text-center space-y-4 sm:space-y-6">
+    <h2 class="text-xl sm:text-3xl font-semibold tracking-wide leading-snug sm:leading-relaxed">
+      Ready to Experience It?
+    </h2>
+    <p class="text-gray-300 text-sm sm:text-lg leading-snug sm:leading-relaxed max-w-2xl mx-auto">
+      Discover a stay that blends comfort, elegance, and unmatched hospitality. Your journey starts here.
+    </p>
+    <div class="flex justify-center gap-3 sm:gap-4 flex-wrap">
+      <RouterLink 
+        to="/explore"
+        class="bg-mainColor text-white font-semibold py-2.5 px-5 rounded-lg hover:bg-mainColor transition"
+      >
+        Book Now
+      </RouterLink>
+      <RouterLink
+        to="/contact"
+        class="bg-white text-textColor font-semibold py-2.5 px-5 rounded-lg hover:bg-white hover:text-neutral-900 transition"
+      >
+        Contact Us
+      </RouterLink>
+    </div>
+  </div>
+</section>
 
     <footer>
       <FooterView />
