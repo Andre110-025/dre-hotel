@@ -136,7 +136,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace this with your actual IconPoolSpa component -->
-          <IconSpa />
+          <IconSpa class="w-8 h-8" />
         </div>
         <h3 class="text-lg font-semibold mb-2">Pool & Spa</h3>
         <p class="text-sm text-gray-600">Relax in our serene spa or take a dip in the rooftop infinity pool.</p>
@@ -145,7 +145,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace with IconDining -->
-          <IconBreakfast />
+          <IconBreakfast class="w-8 h-8" />
         </div>
         <h3 class="text-lg font-semibold mb-2">Dining</h3>
         <p class="text-sm text-gray-600">Enjoy gourmet meals, crafted cocktails, and curated local flavors.</p>
@@ -163,7 +163,7 @@ const exploreText = ref(
       <div class="p-6 bg-gray-100 rounded-lg shadow hover:shadow-md transition">
         <div class="mb-4 flex justify-center">
           <!-- Replace with IconAirport -->
-          <IconAir />
+          <IconAir class="w-8 h-8" />
         </div>
         <h3 class="text-lg font-semibold mb-2">Airport Transfers</h3>
         <p class="text-sm text-gray-600">Complimentary pick-up and drop-off to make your travel seamless.</p>

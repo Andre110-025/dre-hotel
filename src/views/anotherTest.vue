@@ -15,7 +15,7 @@ const router = useRouter();
 
 const { formatCurrency, channelList, generateRandomRef } = useHelpers();
 
-
+// getting whatever the user clicks from the front
 const props = defineProps({
   paymentID: String,
   formType: String,
@@ -31,6 +31,7 @@ const loading = ref(false);
 
 const payData = ref(null);
 
+// sending those key to the backend so it knows what infomation to send
 const getPaymentInfo = async () => {
   try {
     const response = await axios.post("getpaymentinfo", {
@@ -55,6 +56,9 @@ const infoWallet = {
   payment_type: "Wallet",
 };
 
+// getting what the user click, add to metadata
+// if user clicks on outdoorRequest asign outDoorSite else
+// return to what user originally click
 const adsType = () => {
   if (props.formType === "OutdoorRequest") {
     return "OutdoorSite";
@@ -67,7 +71,7 @@ function startCredoPayment () {
     const transactionRef = generateRandomRef();
     const amount = payData.value.total_price + (payData.value.chargeFee || payData.value.ChargeFee)
 
-    const handler = window.CredoWidget.setup({
+    const handler = window.CredoWidget.setup({ // this opens the pop up
         key: '093NGDDGVD3HCGDBsDJCfGDBCBH',  // this is a fake credo public key
         email: userDetails.userInfo.email,
         amount: amount, // for test
@@ -128,6 +132,7 @@ function startPayment() {
     email: userDetails.userInfo.email,
     amount: amount * 100,
     channels: channelList(amount),
+    // this tell the backend what the payment is for
     metadata: {
       paymentFor: "Application Fee",
       paymentId: props.paymentID,
@@ -136,6 +141,7 @@ function startPayment() {
     },
     onSuccess: (transaction) => {
       console.log(transaction);
+      // this tell the backend what was paid for
       const data = {
         reference_id: transaction.reference,
         payment_id: props.paymentID,
@@ -158,6 +164,7 @@ function startPayment() {
   });
 }
 
+// this is sending the info of what was paid for to the backend data
 const submitPayInfo = async (data) => {
   loading.value = true;
 

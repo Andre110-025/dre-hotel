@@ -143,6 +143,7 @@ const heroText = ref(
                 <p class="text-sm text-gray-500">
                     {{ hotels.alt_description }}
                 </p>
+                <p class="hidden">{{ hotels.id }}</p>
                 <div class="flex items-center justify-between pt-3">
                     <span class="text-lg font-bold text-gray-900">${{ hotels.likes }}<span class="text-sm text-gray-500">/night</span></span>
                     <RouterLink
@@ -154,7 +155,7 @@ const heroText = ref(
                     </RouterLink>
                     <RouterLink
                         v-else
-                        :to="{ name: 'bookUs', query: { price: hotels.likes, image: hotels.urls.small, title: hotels.description, overview: hotels.alt_description } }"
+                        :to="{ name: 'bookUs', query: { price: hotels.likes, image: hotels.urls.small, title: hotels.description, overview: hotels.alt_description, id: hotels.id } }"
                         class="bg-mainColor text-white text-sm px-4 py-2 rounded-lg hover:bg-mainColor transition"
                     >
                         Book Now

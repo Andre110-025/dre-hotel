@@ -680,6 +680,27 @@ const handleResetPassword = async () => {
     loading.value = false
   }
 }
+
+const saveBooking = () => {
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || []
+
+  // Add new booking
+  bookings.push({
+    userId: "user123", // fake logged in user ID
+    ...bookedRoom.value,
+    bookedAt: new Date()
+  })
+
+  localStorage.setItem("bookings", JSON.stringify(bookings))
+}
+
+import { ref, onMounted } from 'vue'
+
+const userId = "user123" // fake logged-in user
+const bookings = ref([])
+
+onMounted(() => {
+  let saved = JSON.parse(localStorage.getItem("bookings")) || []
+  bookings.value = saved.filter(b => b.userId === userId)
+})
 </script>
-
-

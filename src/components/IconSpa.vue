@@ -1,7 +1,7 @@
 <template>
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    class="w-8 h-8 p-1 rounded-md bg-slate-800 text-white" 
+    class="w-12 h-12 p-1 rounded-md bg-slate-800 text-white" 
     viewBox="0 0 24 24"
   >
     <!-- Icon from Huge Icons -->

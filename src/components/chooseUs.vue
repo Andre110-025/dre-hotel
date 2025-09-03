@@ -63,7 +63,7 @@ const features = [
         >
           <component
   :is="feature.icon"
-  class="w-10 h-10 mx-auto mb-4 p-3 bg-indigo-100 rounded-full text-indigo-600 icon-hover"
+  class="mx-auto mb-4 p-3 bg-indigo-100 rounded-full text-indigo-600 icon-hover"
   aria-hidden="true"
 />
           <h3
