@@ -1,176 +1,176 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { VueFinalModal } from "vue-final-modal";
-import { useHelpers } from "../../../helper";
-import { useUserStore } from "../../../stores/user";
-// import PaystackPop from "@paystack/inline-js";
-import { toast } from "vue3-toastify";
-import axios from "axios";
-import IconSpinner from "../../icons/IconSpinner.vue";
+// import { ref, onMounted } from "vue";
+// import { VueFinalModal } from "vue-final-modal";
+// import { useHelpers } from "../../../helper";
+// import { useUserStore } from "../../../stores/user";
+// // import PaystackPop from "@paystack/inline-js";
+// import { toast } from "vue3-toastify";
+// import axios from "axios";
+// import IconSpinner from "../../icons/IconSpinner.vue";
 
-const { userDetails } = useUserStore();
+// const { userDetails } = useUserStore();
 
-const { formatCurrency, channelList } = useHelpers();
-const props = defineProps({
-  appID: Number,
-  adType: String,
-  paymentID: String,
-});
+// const { formatCurrency, channelList } = useHelpers();
+// const props = defineProps({
+//   appID: Number,
+//   adType: String,
+//   paymentID: String,
+// });
 
-const emit = defineEmits(["confirm"]);
+// const emit = defineEmits(["confirm"]);
 
-const getEndPoint = () => {
-  if (props.adType === "Onpremise") return "onpremisepayment";
-  else if (props.adType === "Mobile") return "mobileadspayment";
-  else if (props.adType === "ThirdPartyMobile")
-    return "thirdpartymobilepayment";
-  else if (props.adType === "OutDoor Site") return "outdoorsignagepayment";
-  else if (props.adType === 'Firstparty TemporaryAds' ) return 'firstpartytemporarypayment'
-};
+// const getEndPoint = () => {
+//   if (props.adType === "Onpremise") return "onpremisepayment";
+//   else if (props.adType === "Mobile") return "mobileadspayment";
+//   else if (props.adType === "ThirdPartyMobile")
+//     return "thirdpartymobilepayment";
+//   else if (props.adType === "OutDoor Site") return "outdoorsignagepayment";
+//   else if (props.adType === 'Firstparty TemporaryAds' ) return 'firstpartytemporarypayment'
+// };
 
-const loading = ref(false);
+// const loading = ref(false);
 
-const permitCost = ref(null);
+// const permitCost = ref(null);
 
-const getPaymentInfo = async () => {
-  try {
-    const response = await axios.get(`${getEndPoint()}/${props.appID}`);
+// const getPaymentInfo = async () => {
+//   try {
+//     const response = await axios.get(`${getEndPoint()}/${props.appID}`);
 
-    console.log(response);
+//     console.log(response);
 
-    if (response.status === 200) {
-      permitCost.value = response.data;
-    }
-  } catch (error) {
-    // emit('confirm')
-  }
-};
+//     if (response.status === 200) {
+//       permitCost.value = response.data;
+//     }
+//   } catch (error) {
+//     // emit('confirm')
+//   }
+// };
 
-const infoWallet = {
-  reference_id: `wa${props.paymentID}`,
-  payment_id: props.paymentID,
-  type_ads: props.adType,
-  payment_type: "Wallet",
-};
+// const infoWallet = {
+//   reference_id: `wa${props.paymentID}`,
+//   payment_id: props.paymentID,
+//   type_ads: props.adType,
+//   payment_type: "Wallet",
+// };
 
-const startCredoPayment = () => {
-  loading.value = true;
-  const transRef = generateRandomRef();
-  const amount = (permitCost.value.Total || permitCost.value['Total Fee']) + permitCost.value.ChargeFee;
+// const startCredoPayment = () => {
+//   loading.value = true;
+//   const transRef = generateRandomRef();
+//   const amount = (permitCost.value.Total || permitCost.value['Total Fee']) + permitCost.value.ChargeFee;
 
-  const handler = window.CredoWidget.setup({
-    key: 'OJD834H7jrr7UD484U8RHFJJFJ',  // test credo public key
-    email: userDetails.userInfo.email,
-    amount: amount * 100,
-    currency: 'NGN',
-    renderSize: 0,
-    channels: channelList(amount),
-    reference: transRef,
-    metadata: {
-        paymentFor: "Permit Bill",
-        applicationId: props.appID,
-        appType: props.adType,
-    },
-    callbackUrl: "https://merchant-test-line.netlify.app/successful",
-    callBack: (transaction) => {
-      console.log(transaction);
-      const data = {
-        reference_id: transaction.reference,
-        payment_id: props.paymentID,
-        type_ads: props.adType,
-        payment_type: "Credo",
-      };
-      setTimeout(() => emit("confirm", true), 7000);
-      // submitPayInfo(data);
-    },
-    onClose: () => {
-      loading.value = false;
-      toast.error("Payment Cancelled", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    },
-  });
+//   const handler = window.CredoWidget.setup({
+//     key: 'OJD834H7jrr7UD484U8RHFJJFJ',  // test credo public key
+//     email: userDetails.userInfo.email,
+//     amount: amount * 100,
+//     currency: 'NGN',
+//     renderSize: 0,
+//     channels: channelList(amount),
+//     reference: transRef,
+//     metadata: {
+//         paymentFor: "Permit Bill",
+//         applicationId: props.appID,
+//         appType: props.adType,
+//     },
+//     callbackUrl: "https://merchant-test-line.netlify.app/successful",
+//     callBack: (transaction) => {
+//       console.log(transaction);
+//       const data = {
+//         reference_id: transaction.reference,
+//         payment_id: props.paymentID,
+//         type_ads: props.adType,
+//         payment_type: "Credo",
+//       };
+//       setTimeout(() => emit("confirm", true), 7000);
+//       // submitPayInfo(data);
+//     },
+//     onClose: () => {
+//       loading.value = false;
+//       toast.error("Payment Cancelled", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//     },
+//   });
 
-  handler.openIframe();
-}
+//   handler.openIframe();
+// }
 
-function startPayment() {
-  loading.value = true;
-  const paystack = new PaystackPop();
+// function startPayment() {
+//   loading.value = true;
+//   const paystack = new PaystackPop();
 
-  const amount = (permitCost.value.Total || permitCost.value['Total Fee']) + permitCost.value.ChargeFee;
+//   const amount = (permitCost.value.Total || permitCost.value['Total Fee']) + permitCost.value.ChargeFee;
 
-  paystack.newTransaction({
-    key: import.meta.env.VITE_ENV_STRING + permitCost.value.additionalInfo,
-    email: userDetails.userInfo.email,
-    amount: amount * 100,
-    channels: channelList(amount),
-    metadata: {
-      paymentFor: "Permit Bill",
-      applicationId: props.appID,
-      appType: props.adType,
-    },
-    onSuccess: (transaction) => {
-      console.log(transaction);
-      const data = {
-        reference_id: transaction.reference,
-        payment_id: props.paymentID,
-        type_ads: props.adType,
-        payment_type: "Paystack",
-      };
+//   paystack.newTransaction({
+//     key: import.meta.env.VITE_ENV_STRING + permitCost.value.additionalInfo,
+//     email: userDetails.userInfo.email,
+//     amount: amount * 100,
+//     channels: channelList(amount),
+//     metadata: {
+//       paymentFor: "Permit Bill",
+//       applicationId: props.appID,
+//       appType: props.adType,
+//     },
+//     onSuccess: (transaction) => {
+//       console.log(transaction);
+//       const data = {
+//         reference_id: transaction.reference,
+//         payment_id: props.paymentID,
+//         type_ads: props.adType,
+//         payment_type: "Paystack",
+//       };
 
-      // console.log(data);
-      setTimeout(() => emit("confirm", true), 7000);
-      // submitPayInfo(data);
-    },
-    onCancel: () => {
-      loading.value = false;
-    },
-  });
-}
+//       // console.log(data);
+//       setTimeout(() => emit("confirm", true), 7000);
+//       // submitPayInfo(data);
+//     },
+//     onCancel: () => {
+//       loading.value = false;
+//     },
+//   });
+// }
 
-const submitPayInfo = async (data) => {
-  loading.value = true;
+// const submitPayInfo = async (data) => {
+//   loading.value = true;
 
-  console.log(data);
-  try {
-    const response = await axios.post("setadspaymentinfo", data);
+//   console.log(data);
+//   try {
+//     const response = await axios.post("setadspaymentinfo", data);
 
-    if (response.status === 200) {
-      toast.success("Permit Payment Successful", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      toast.success("Kindly check your mail", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+//     if (response.status === 200) {
+//       toast.success("Permit Payment Successful", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//       toast.success("Kindly check your mail", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
 
-      // router.push({ name: "Overview" });
-      emit("confirm", true);
-    }
-  } catch (error) {
-    if (error.response.data.error) {
-      toast.error(error.response.data.error, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    } else {
-      toast.error("Your Payment Could not be confirmed", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-    // error.response.data
+//       // router.push({ name: "Overview" });
+//       emit("confirm", true);
+//     }
+//   } catch (error) {
+//     if (error.response.data.error) {
+//       toast.error(error.response.data.error, {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//     } else {
+//       toast.error("Your Payment Could not be confirmed", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//     }
+//     // error.response.data
 
-    // router.push({ name: "Overview" });
-    emit("confirm");
-  }
-};
+//     // router.push({ name: "Overview" });
+//     emit("confirm");
+//   }
+// };
 
-onMounted(() => {
-  getPaymentInfo();
-});
+// onMounted(() => {
+//   getPaymentInfo();
+// });
 </script>
 
 <template>
-  <VueFinalModal
+  <!-- <VueFinalModal
     class="flex h-full w-full justify-center items-center"
     content-class="relative bg-white border space-y-2 w-full sm:w-4/5 sm:min-w-[28.125rem] min-h-[350px] max-w-[340px]"
     overlay-class="bg-background/80 backdrop-blur-sm"
@@ -244,10 +244,6 @@ onMounted(() => {
         </div>
       </div>
 
-      <!-- <p v-else class="text-center italic mt-10">
-        Getting Your Application Fee
-      </p> -->
-
       <div v-if="permitCost">
         <button
           :disabled="loading"
@@ -273,5 +269,5 @@ onMounted(() => {
         </button>
       </div>
     </div>
-  </VueFinalModal>
+  </VueFinalModal> -->
 </template>

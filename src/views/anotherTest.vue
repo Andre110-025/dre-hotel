@@ -1,223 +1,223 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { VueFinalModal } from "vue-final-modal";
-import { useHelpers } from "../../../helper";
-import { useUserStore } from "../../../stores/user";
-// import PaystackPop from "@paystack/inline-js";
-import { toast } from "vue3-toastify";
-import axios from "axios";
-import { useRouter } from "vue-router";
-import IconSpinner from "../../icons/IconSpinner.vue";
+// import { ref, onMounted } from "vue";
+// import { VueFinalModal } from "vue-final-modal";
+// import { useHelpers } from "../../../helper";
+// import { useUserStore } from "../../../stores/user";
+// // import PaystackPop from "@paystack/inline-js";
+// import { toast } from "vue3-toastify";
+// import axios from "axios";
+// import { useRouter } from "vue-router";
+// import IconSpinner from "../../icons/IconSpinner.vue";
 
-const { userDetails } = useUserStore();
+// const { userDetails } = useUserStore();
 
-const router = useRouter();
+// const router = useRouter();
 
-const { formatCurrency, channelList, generateRandomRef } = useHelpers();
+// const { formatCurrency, channelList, generateRandomRef } = useHelpers();
 
-// getting whatever the user clicks from the front
-const props = defineProps({
-  paymentID: String,
-  formType: String,
-  appPurpose: {
-    default: "Application for New Sign",
-    type: String,
-  },
-});
+// // getting whatever the user clicks from the front
+// const props = defineProps({
+//   paymentID: String,
+//   formType: String,
+//   appPurpose: {
+//     default: "Application for New Sign",
+//     type: String,
+//   },
+// });
 
-const emit = defineEmits(["confirm"]);
+// const emit = defineEmits(["confirm"]);
 
-const loading = ref(false);
+// const loading = ref(false);
 
-const payData = ref(null);
+// const payData = ref(null);
 
-// sending those key to the backend so it knows what infomation to send
-const getPaymentInfo = async () => {
-  try {
-    const response = await axios.post("getpaymentinfo", {
-      type_ads: props.formType,
-      paymentId: props.paymentID,
-    });
+// // sending those key to the backend so it knows what infomation to send
+// const getPaymentInfo = async () => {
+//   try {
+//     const response = await axios.post("getpaymentinfo", {
+//       type_ads: props.formType,
+//       paymentId: props.paymentID,
+//     });
 
-    console.log(response);
+//     console.log(response);
 
-    if (response.data.success) {
-      payData.value = response.data;
-    }
-  } catch (error) {
-    emit("confirm");
-  }
-};
+//     if (response.data.success) {
+//       payData.value = response.data;
+//     }
+//   } catch (error) {
+//     emit("confirm");
+//   }
+// };
 
-const infoWallet = {
-  reference_id: `wa${props.paymentID}`,
-  payment_id: props.paymentID,
-  form_type: props.formType,
-  payment_type: "Wallet",
-};
+// const infoWallet = {
+//   reference_id: `wa${props.paymentID}`,
+//   payment_id: props.paymentID,
+//   form_type: props.formType,
+//   payment_type: "Wallet",
+// };
 
-// getting what the user click, add to metadata
-// if user clicks on outdoorRequest asign outDoorSite else
-// return to what user originally click
-const adsType = () => {
-  if (props.formType === "OutdoorRequest") {
-    return "OutdoorSite";
-  } else {
-    return props.formType;
-  }
-};
+// // getting what the user click, add to metadata
+// // if user clicks on outdoorRequest asign outDoorSite else
+// // return to what user originally click
+// const adsType = () => {
+//   if (props.formType === "OutdoorRequest") {
+//     return "OutdoorSite";
+//   } else {
+//     return props.formType;
+//   }
+// };
 
-function startCredoPayment () {
-    const transactionRef = generateRandomRef();
-    const amount = payData.value.total_price + (payData.value.chargeFee || payData.value.ChargeFee)
+// function startCredoPayment () {
+//     const transactionRef = generateRandomRef();
+//     const amount = payData.value.total_price + (payData.value.chargeFee || payData.value.ChargeFee)
 
-    const handler = window.CredoWidget.setup({ // this opens the pop up
-        key: '093NGDDGVD3HCGDBsDJCfGDBCBH',  // this is a fake credo public key
-        email: userDetails.userInfo.email,
-        amount: amount, // for test
-        currency: 'NGN',
-        renderSize: 0, // don't know what it's for yet
-        channels: channelList(amount),
-        reference: transactionRef,
-        metadata: {
-            paymentFor: "Application Fee",
-            paymentId: props.paymentID,
-            appType: adsType(),
-            appPurpose: props.appPurpose,
-        },
-        callbackUrl: "https://merchant-test-line.netlify.app/successful", 
-        onClose: () => {
-            console.log("Widget Closed");
-            toast.error("Payment Cancelled", {
-                position: toast.POSITION.TOP_CENTER,
-            });   
-        },
-        // callBack: (response) => {
-        //     console.log("Successful Payment", response);
-        //     setTimeout(() => emit("confirm"), 7000);
+//     const handler = window.CredoWidget.setup({ // this opens the pop up
+//         key: '093NGDDGVD3HCGDBsDJCfGDBCBH',  // this is a fake credo public key
+//         email: userDetails.userInfo.email,
+//         amount: amount, // for test
+//         currency: 'NGN',
+//         renderSize: 0, // don't know what it's for yet
+//         channels: channelList(amount),
+//         reference: transactionRef,
+//         metadata: {
+//             paymentFor: "Application Fee",
+//             paymentId: props.paymentID,
+//             appType: adsType(),
+//             appPurpose: props.appPurpose,
+//         },
+//         callbackUrl: "https://merchant-test-line.netlify.app/successful", 
+//         onClose: () => {
+//             console.log("Widget Closed");
+//             toast.error("Payment Cancelled", {
+//                 position: toast.POSITION.TOP_CENTER,
+//             });   
+//         },
+//         // callBack: (response) => {
+//         //     console.log("Successful Payment", response);
+//         //     setTimeout(() => emit("confirm"), 7000);
 
-        //     toast.success("Payment Successful", {
-        //         position: toast.POSITION.TOP_CENTER,
-        //     });
-        //     toast.success("Kindly check your mail", {
-        //         position: toast.POSITION.TOP_CENTER,
-        //     });
-        // },
-        onSuccess: (response) => {
-            console.log("Successful Payment", response);
-            setTimeout(() => emit("confirm"), 7000);
+//         //     toast.success("Payment Successful", {
+//         //         position: toast.POSITION.TOP_CENTER,
+//         //     });
+//         //     toast.success("Kindly check your mail", {
+//         //         position: toast.POSITION.TOP_CENTER,
+//         //     });
+//         // },
+//         onSuccess: (response) => {
+//             console.log("Successful Payment", response);
+//             setTimeout(() => emit("confirm"), 7000);
 
-            toast.success("Payment Successful", {
-                position: toast.POSITION.TOP_CENTER,
-            });
-            toast.success("Kindly check your mail", {
-                position: toast.POSITION.TOP_CENTER,
-            });
-        },
-    });
+//             toast.success("Payment Successful", {
+//                 position: toast.POSITION.TOP_CENTER,
+//             });
+//             toast.success("Kindly check your mail", {
+//                 position: toast.POSITION.TOP_CENTER,
+//             });
+//         },
+//     });
 
-    handler.openIframe();
-}
+//     handler.openIframe();
+// }
 
-function startPayment() {
-  loading.value = true;
-  const paystack = new PaystackPop();
+// function startPayment() {
+//   loading.value = true;
+//   const paystack = new PaystackPop();
 
-  const amount =
-    payData.value.total_price +
-    (payData.value.chargeFee || payData.value.ChargeFee);
+//   const amount =
+//     payData.value.total_price +
+//     (payData.value.chargeFee || payData.value.ChargeFee);
 
-  paystack.newTransaction({
-    key: import.meta.env.VITE_ENV_STRING + payData.value.additionalInfo,
-    email: userDetails.userInfo.email,
-    amount: amount * 100,
-    channels: channelList(amount),
-    // this tell the backend what the payment is for
-    metadata: {
-      paymentFor: "Application Fee",
-      paymentId: props.paymentID,
-      appType: adsType(),
-      appPurpose: props.appPurpose,
-    },
-    onSuccess: (transaction) => {
-      console.log(transaction);
-      // this tell the backend what was paid for
-      const data = {
-        reference_id: transaction.reference,
-        payment_id: props.paymentID,
-        form_type: props.formType,
-        payment_type: "Paystack",
-      };
+//   paystack.newTransaction({
+//     key: import.meta.env.VITE_ENV_STRING + payData.value.additionalInfo,
+//     email: userDetails.userInfo.email,
+//     amount: amount * 100,
+//     channels: channelList(amount),
+//     // this tell the backend what the payment is for
+//     metadata: {
+//       paymentFor: "Application Fee",
+//       paymentId: props.paymentID,
+//       appType: adsType(),
+//       appPurpose: props.appPurpose,
+//     },
+//     onSuccess: (transaction) => {
+//       console.log(transaction);
+//       // this tell the backend what was paid for
+//       const data = {
+//         reference_id: transaction.reference,
+//         payment_id: props.paymentID,
+//         form_type: props.formType,
+//         payment_type: "Paystack",
+//       };
 
-      setTimeout(() => emit("confirm"), 7000);
+//       setTimeout(() => emit("confirm"), 7000);
 
-      toast.success("Your Application is being Processed", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    },
-    onCancel: () => {
-      toast.error("Payment Cancelled", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      loading.value = false;
-    },
-  });
-}
+//       toast.success("Your Application is being Processed", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//     },
+//     onCancel: () => {
+//       toast.error("Payment Cancelled", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//       loading.value = false;
+//     },
+//   });
+// }
 
-// this is sending the info of what was paid for to the backend data
-const submitPayInfo = async (data) => {
-  loading.value = true;
+// // this is sending the info of what was paid for to the backend data
+// const submitPayInfo = async (data) => {
+//   loading.value = true;
 
-  console.log(data);
-  try {
-    const response = await axios.post("confirmpayment", data);
+//   console.log(data);
+//   try {
+//     const response = await axios.post("confirmpayment", data);
 
-    if (response.status === 200) {
-      toast.success("Payment Successful", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      toast.success("Your Application is being Processed", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+//     if (response.status === 200) {
+//       toast.success("Payment Successful", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//       toast.success("Your Application is being Processed", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
 
-      // router.push({ name: "Overview" });
-      emit("confirm");
-    }
-  } catch (error) {
-    if (error.response.data.data) {
-      toast.error(error.response.data.data, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    } else {
-      toast.error("Your Payment Could not be confirmed", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
+//       // router.push({ name: "Overview" });
+//       emit("confirm");
+//     }
+//   } catch (error) {
+//     if (error.response.data.data) {
+//       toast.error(error.response.data.data, {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//     } else {
+//       toast.error("Your Payment Could not be confirmed", {
+//         position: toast.POSITION.TOP_CENTER,
+//       });
+//     }
 
-    router.push({ name: "RequestLists" });
-    emit("confirm");
-  }
-};
+//     router.push({ name: "RequestLists" });
+//     emit("confirm");
+//   }
+// };
 
-const walletPay = () => {
-  if (
-    props.formType === "Firstparty TemporaryAds" ||
-    props.formType === "OutdoorRequest" ||
-    props.formType === "SmallFormat Application" ||
-    props.formType === "SmallFormat Inspection" ||
-    props.formType === "OutdoorSite"
-  ) {
-    return false;
-  } else return true;
-};
+// const walletPay = () => {
+//   if (
+//     props.formType === "Firstparty TemporaryAds" ||
+//     props.formType === "OutdoorRequest" ||
+//     props.formType === "SmallFormat Application" ||
+//     props.formType === "SmallFormat Inspection" ||
+//     props.formType === "OutdoorSite"
+//   ) {
+//     return false;
+//   } else return true;
+// };
 
-onMounted(() => {
-  getPaymentInfo();
-});
+// onMounted(() => {
+//   getPaymentInfo();
+// });
 </script>
 
 <template>
-  <VueFinalModal
+  <!-- <VueFinalModal
     class="flex h-full w-full justify-center items-center"
     content-class="relative bg-white border space-y-2 w-full sm:w-4/5 sm:min-w-[28.125rem] min-h-[350px] max-w-[340px]"
     overlay-class="bg-background/80 backdrop-blur-sm"
@@ -254,9 +254,6 @@ onMounted(() => {
         ></p>
       </div>
 
-      <!-- <p v-else class="text-center italic mt-10">
-        Getting Your Application Fee
-      </p> -->
       <div v-if="payData">
         <button
           :disabled="loading"
@@ -282,5 +279,5 @@ onMounted(() => {
         </button>
       </div>
     </div>
-  </VueFinalModal>
+  </VueFinalModal> -->
 </template>
