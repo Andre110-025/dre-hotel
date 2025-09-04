@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import { VueFinalModal } from "vue-final-modal";
 import { useHelpers } from "../../../helper";
 import { useUserStore } from "../../../stores/user";
-import PaystackPop from "@paystack/inline-js";
+// import PaystackPop from "@paystack/inline-js";
 import { toast } from "vue3-toastify";
 import axios from "axios";
 import IconSpinner from "../../icons/IconSpinner.vue";

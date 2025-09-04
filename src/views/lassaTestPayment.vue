@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useHelpers } from "../../helper";
-import PaystackPop from "@paystack/inline-js";
+// import PaystackPop from "@paystack/inline-js";
 import { useUserStore } from "../../stores/user";
 import { toast } from "vue3-toastify";
 import axios from "axios";
