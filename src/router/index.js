@@ -98,7 +98,7 @@ const router = createRouter({
     {
       path: '/lassaTestPayment',
       name: 'lassaTestPayment',
-      component: () => import('../views/lassaTestPayment.vue')
+      component: () => import('../components/lassaTestPayment.vue')
     }
   ],
 

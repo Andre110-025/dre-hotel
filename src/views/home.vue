@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import { toast } from 'vue3-toastify';
+import LassaTestPayment from '@/components/lassaTestPayment.vue';
 
 const heroImages = ref([
   '/standardRoom.png',
@@ -144,6 +145,10 @@ const handleSubscribe = async () => {
     </div>
   </section>
 </div>
+
+  <div>
+    <LassaTestPayment />
+  </div>
 
   <section class="bg-gray-800 text-white py-8 px-4">
       <div class="max-w-2xl mx-auto text-center">
